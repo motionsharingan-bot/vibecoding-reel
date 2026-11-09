@@ -1,0 +1,1279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vibe-coding showreel</title>
+<meta name="description" content="Motion written in code, After Effects driven by an AI agent, tools, websites and automation. EN / UK.">
+<meta name="theme-color" content="#05060a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vibe-coding showreel">
+<meta property="og:description" content="Motion written in code, After Effects driven by an AI agent, tools, websites and automation. EN / UK.">
+<meta property="og:image" content="https://motionsharingan-bot.github.io/vibecoding-reel/media/og.jpg">
+<meta property="og:url" content="https://motionsharingan-bot.github.io/vibecoding-reel/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2305060a'/%3E%3Cpath d='M6 22l6-12 4 8 3-5 7 9' fill='none' stroke='%2300e5ff' stroke-width='2.5'/%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: світла галерея-шоурил; колір дають самі роботи. Кожен кейс — живе демо. Темна сцена для головного кейсу (After Effects). Одна світла тема свідомо. */
+:root {
+  --paper: #eceef0;
+  --paper-2: #e2e5e8;
+  --ink: #0e0f11;
+  --mute: #5b6168;
+  --rule: #cfd3d7;
+  --stage: #0e0f11;
+  --stage-fg: #eceef0;
+  --stage-mute: #8b929b;
+  --stage-line: #2a2d33;
+  --signal: #ff4d1f;
+  --ok: #1f9d55;
+  --neon: #00d8ff;
+  --magenta: #ff2bd6;
+  --f-display: "Geologica", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", Consolas, ui-monospace, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--paper); color: var(--ink); font: 300 17px/1.5 var(--f-display); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+.g { padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+.in { max-width: 1320px; margin: 0 auto; }
+img, video { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+.mono { font: 400 12px/1.5 var(--f-mono); letter-spacing: .03em; color: var(--mute); }
+
+/* buttons */
+.btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--ink); background: transparent; border-radius: 999px; padding: 9px 16px; font: 400 13px/1 var(--f-mono); cursor: pointer; transition: background .15s, color .15s; text-decoration: none; }
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn.solid { background: var(--ink); color: var(--paper); }
+.btn.solid:hover { background: var(--signal); border-color: var(--signal); }
+.stage .btn { border-color: #3a3e45; color: var(--stage-fg); }
+.stage .btn:hover, .stage .btn.on { background: var(--stage-fg); color: var(--ink); border-color: var(--stage-fg); }
+.stage .btn:disabled { opacity: .35; cursor: default; background: transparent; color: var(--stage-fg); }
+
+/* top bar */
+.bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 18px; flex-wrap: wrap; }
+.bar nav { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+.bar nav a { text-decoration: none; font: 400 13px/1 var(--f-mono); }
+.bar nav a:hover { color: var(--signal); }
+.lang { display: inline-flex; border: 1px solid var(--ink); border-radius: 999px; overflow: hidden; }
+.lang button { border: 0; background: transparent; padding: 7px 11px; font: 600 12px/1 var(--f-mono); cursor: pointer; }
+.lang button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+/* hero */
+.hero { padding-block: 56px 32px; }
+.hero h1 { font: 900 clamp(46px, 9.4vw, 148px)/.86 var(--f-display); letter-spacing: -.045em; margin: 0; text-wrap: balance; }
+.hero h1 em { font-style: normal; color: var(--signal); }
+.hero .sub { display: flex; justify-content: space-between; gap: 20px 48px; margin-top: 28px; flex-wrap: wrap; align-items: end; }
+.hero .sub p { margin: 0; max-width: 46ch; font-size: 19px; }
+
+/* draggable reel */
+.reel { overflow: hidden; cursor: grab; touch-action: pan-y; user-select: none; }
+.reel.drag { cursor: grabbing; }
+.track { display: flex; gap: 12px; width: max-content; will-change: transform; }
+.track video { height: clamp(300px, 52vh, 560px); width: auto; aspect-ratio: 9/16; object-fit: cover; border-radius: 4px; background: var(--paper-2); pointer-events: none; transition: transform .35s cubic-bezier(.2,.8,.2,1), filter .35s; }
+.reel:hover .track video { filter: saturate(.9) brightness(.92); }
+.reel .track video.hot { transform: scale(1.03); filter: none; }
+.reel-hint { margin-top: 10px; }
+
+/* sections */
+section.s { padding-block: 120px 0; }
+.head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 24px 48px; align-items: end; margin-bottom: 36px; }
+.head h2 { font: 800 clamp(36px, 6vw, 84px)/.9 var(--f-display); letter-spacing: -.04em; margin: 0; }
+.head p { margin: 0; max-width: 52ch; color: var(--mute); }
+.idx { font: 400 12px/1 var(--f-mono); color: var(--mute); display: block; margin-bottom: 14px; }
+
+/* films */
+.filters { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+.filters .btn[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.films { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 12px; }
+.films figure { grid-column: span 2; }
+.films figure.w { grid-column: span 5; }
+figure { margin: 0; min-width: 0; }
+.films button.f { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; position: relative; border-radius: 4px; overflow: hidden; }
+.films video { width: 100%; object-fit: cover; background: var(--paper-2); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.films figure.w video { aspect-ratio: 16/9; }
+.films figure.v video { aspect-ratio: 9/16; }
+.films button.f:hover video { transform: scale(1.04); }
+.films .play { position: absolute; left: 10px; bottom: 10px; font: 600 11px/1 var(--f-mono); background: var(--paper); color: var(--ink); padding: 6px 8px; border-radius: 3px; opacity: 0; transition: opacity .2s; }
+.films button.f:hover .play, .films button.f:focus-visible .play { opacity: 1; }
+figcaption { display: flex; justify-content: space-between; gap: 8px; padding-top: 8px; font: 400 12px/1.35 var(--f-mono); color: var(--mute); }
+figcaption b { color: var(--ink); font-weight: 600; }
+.films figure[hidden] { display: none; }
+.note { margin-top: 24px; font: 400 13px/1.5 var(--f-mono); color: var(--mute); max-width: 80ch; }
+
+/* lightbox */
+.lb { position: fixed; inset: 0; z-index: 30; background: #0e0f11f2; display: grid; place-items: center; padding: max(24px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(24px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+[hidden], .lb[hidden], .films figure[hidden] { display: none !important; }
+.lb video { max-height: 82vh; max-width: min(92vw, 1400px); border-radius: 6px; }
+.lb p { color: var(--stage-mute); font: 400 12px/1.4 var(--f-mono); margin: 14px 0 0; text-align: center; }
+.lb .x { position: absolute; top: calc(16px + env(safe-area-inset-top, 0px)); right: calc(16px + env(safe-area-inset-right, 0px)); border: 1px solid #3a3e45; color: var(--stage-fg); background: transparent; border-radius: 999px; padding: 8px 14px; font: 400 13px/1 var(--f-mono); cursor: pointer; }
+
+/* stage: After Effects */
+.stage { background: var(--stage); color: var(--stage-fg); margin-top: 120px; padding-block: 96px; }
+.stage .head p, .stage .mono, .stage .idx { color: var(--stage-mute); }
+.ae { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 48px; align-items: start; }
+.facts ul { margin: 0 0 24px; padding: 0; display: grid; gap: 18px; }
+.facts li { list-style: none; padding-top: 16px; border-top: 1px solid var(--stage-line); }
+.facts b { font-weight: 600; }
+.facts p { margin: 16px 0 0; }
+.cmds { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.comp { border: 1px solid var(--stage-line); border-radius: 6px; overflow: hidden; background: #15171b; font: 400 12px/1 var(--f-mono); }
+.comp-top { display: flex; justify-content: space-between; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--stage-line); color: var(--stage-mute); }
+.term { padding: 12px 14px; border-bottom: 1px solid var(--stage-line); color: #b9c0c9; height: 96px; overflow: hidden; line-height: 1.7; display: flex; flex-direction: column; justify-content: flex-end; }
+.term .p { color: var(--signal); font-style: normal; }
+.term .dim { color: #5d646d; }
+.layers { position: relative; min-height: 238px; }
+.ruler { position: relative; height: 22px; border-bottom: 1px solid #22252a; margin-left: 236px; cursor: ew-resize; }
+.ruler span { position: absolute; top: 6px; font-size: 10px; color: #5d646d; transform: translateX(-50%); }
+.layer { display: grid; grid-template-columns: 22px 214px 1fr; align-items: center; height: 34px; border-bottom: 1px solid #22252a; animation: in .35s cubic-bezier(.2,.8,.2,1); }
+@keyframes in { from { opacity: 0; transform: translateY(-6px) } }
+.layer .n { color: #5d646d; text-align: center; }
+.layer .nm { color: #d6dbe1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 8px; }
+.layer .lane { position: relative; height: 100%; border-left: 1px solid #22252a; }
+.layer .lane i { position: absolute; top: 8px; height: 18px; border-radius: 2px; transform-origin: left; animation: grow .6s cubic-bezier(.2,.8,.2,1) both; }
+.layer .lane i.k { width: 8px; height: 8px; top: 13px; transform: rotate(45deg); border-radius: 1px; background: #d6dbe1; animation: none; }
+@keyframes grow { from { transform: scaleX(0) } }
+.empty { padding: 28px 14px; color: #5d646d; }
+.ph { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--signal); pointer-events: none; }
+.ph::before { content: ""; position: absolute; top: 0; left: -5px; border: 6px solid transparent; border-top: 8px solid var(--signal); }
+.viewer { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; border-top: 1px solid var(--stage-line); color: var(--stage-mute); min-height: 44px; }
+.viewer .word { font: 800 18px/1 var(--f-display); color: #e4d84c; letter-spacing: -.01em; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cap { margin-top: 10px; font: 400 11px/1.4 var(--f-mono); color: var(--stage-mute); }
+
+/* tools */
+.tool { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 32px 48px; align-items: center; padding-block: 56px; border-top: 1px solid var(--rule); }
+.head + .tool { border-top: 0; padding-top: 0; }
+.tool.flip { grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr); }
+.tool.flip .vis { order: 2; }
+.tool h3 { font: 800 clamp(28px, 3.6vw, 48px)/.95 var(--f-display); letter-spacing: -.035em; margin: 0 0 14px; text-wrap: balance; }
+.tool p { margin: 0 0 14px; max-width: 46ch; }
+.tool .mono { display: block; }
+.tabs { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.tabs .btn[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.shot { border-radius: 8px; overflow: hidden; box-shadow: 0 30px 60px -30px #0e0f1166, 0 0 0 1px #0e0f1114; background: var(--paper-2); position: relative; }
+.shot img { width: 100%; transition: opacity .35s; }
+.shot img + img { position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; }
+.shot img.off { opacity: 0; }
+.tilt { transition: transform .2s ease-out; transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+
+/* modes */
+.modes { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1fr); gap: 20px; align-items: center; }
+.modes .shot { max-width: 320px; }
+.mode-list { display: grid; gap: 8px; }
+.mode { text-align: left; border: 1px solid var(--rule); background: var(--paper); border-radius: 8px; padding: 14px 16px; cursor: pointer; transition: border-color .15s, background .15s; }
+.mode b { display: block; font: 600 17px/1.2 var(--f-display); }
+.mode span { display: block; font-size: 14px; color: var(--mute); margin-top: 4px; }
+.mode[aria-pressed="true"] { border-color: var(--ink); background: #fff; box-shadow: inset 4px 0 0 var(--signal); }
+
+/* layout fix */
+.kbd-demo { background: var(--ink); color: var(--paper); border-radius: 8px; padding: 32px; display: grid; gap: 18px; }
+.kbd-demo label { font: 400 12px/1 var(--f-mono); color: #9aa1aa; }
+.kbd-demo input { width: 100%; background: transparent; border: 0; border-bottom: 2px solid #33363c; color: var(--paper); font: 600 clamp(26px, 4vw, 46px)/1.2 var(--f-display); letter-spacing: -.02em; padding: 6px 0 10px; outline: none; }
+.kbd-demo input:focus { border-bottom-color: var(--signal); }
+.key { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font: 400 12px/1.4 var(--f-mono); color: #9aa1aa; }
+.key kbd { font: 600 13px/1 var(--f-mono); padding: 10px 14px; border-radius: 5px; background: #24272c; color: var(--paper); box-shadow: 0 3px 0 #000; cursor: pointer; border: 0; transition: transform .08s, box-shadow .08s, background .08s; }
+.key kbd.down { transform: translateY(3px); box-shadow: 0 0 0 #000; background: var(--signal); }
+
+/* sites */
+.sites { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.site h3 { font: 800 28px/1 var(--f-display); letter-spacing: -.03em; margin: 22px 0 8px; }
+.site p { margin: 0 0 12px; color: var(--mute); max-width: 52ch; }
+.site .shot { aspect-ratio: 16/10; }
+.site .shot img { height: 100%; object-fit: cover; object-position: top; }
+.links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+
+.trainer { margin-top: 18px; border: 1px solid var(--rule); border-radius: 8px; padding: 18px; background: #fff; }
+.trainer .q { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font: 400 12px/1.4 var(--f-mono); color: var(--mute); }
+.trainer .q b { color: var(--ink); font-weight: 600; }
+.slots { display: flex; gap: 8px; margin: 14px 0; flex-wrap: wrap; }
+.slot { min-width: 96px; height: 40px; border: 1.5px dashed var(--rule); border-radius: 6px; display: grid; place-items: center; font: 600 13px/1 var(--f-mono); padding: 0 10px; }
+.slot.full { border-style: solid; border-color: var(--ink); background: var(--ink); color: var(--paper); animation: in .25s; }
+.pool { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { border: 1px solid var(--ink); background: var(--paper); border-radius: 6px; padding: 10px 12px; font: 400 13px/1 var(--f-mono); cursor: pointer; }
+.chip:hover { background: var(--ink); color: var(--paper); }
+.chip.used { opacity: .25; pointer-events: none; }
+.chip.bad { animation: shake .35s; border-color: var(--signal); color: var(--signal); }
+@keyframes shake { 25% { transform: translateX(-4px) } 75% { transform: translateX(4px) } }
+.verdict { min-height: 1.5em; margin-top: 12px; font: 600 13px/1.4 var(--f-mono); }
+.verdict.ok { color: var(--ok); }
+
+/* pipeline */
+.pipe { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; background: var(--paper); }
+.node { padding: 26px 20px; border-left: 1px solid var(--rule); position: relative; min-width: 0; transition: background .3s, color .3s; }
+.node:first-child { border-left: 0; }
+.node b { display: block; font: 800 28px/1 var(--f-display); letter-spacing: -.03em; margin-bottom: 10px; }
+.node span { font-size: 15px; color: var(--mute); transition: color .3s; }
+.node.on { background: var(--ink); color: var(--paper); }
+.node.on span { color: #a3a9b1; }
+.node.done::after { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--signal); }
+.pipe-out { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
+.post { font: 400 13px/1.4 var(--f-mono); color: var(--mute); min-height: 1.4em; }
+.post b { color: var(--ink); }
+
+/* NDA */
+.crm { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.nda { position: relative; background: var(--ink); color: var(--paper); border-radius: 8px; padding: 36px 32px 40px; min-width: 0; overflow: hidden; border: 0; text-align: left; cursor: pointer; }
+.nda h3 { font: 800 clamp(26px, 3vw, 40px)/1 var(--f-display); letter-spacing: -.035em; margin: 0 0 12px; max-width: 14ch; }
+.nda p { margin: 0 0 28px; color: #a3a9b1; max-width: 40ch; }
+.stamp { position: absolute; top: 24px; right: 24px; font: 600 12px/1 var(--f-mono); letter-spacing: .14em; color: var(--signal); border: 1.5px solid var(--signal); padding: 7px 10px; border-radius: 3px; transform: rotate(4deg); transition: transform .3s; }
+.redact { display: grid; gap: 10px; }
+.redact i { display: block; height: 16px; border-radius: 2px; font: 600 12px/16px var(--f-mono); font-style: normal; letter-spacing: .08em; white-space: nowrap; overflow: hidden; color: transparent; background: linear-gradient(90deg, #2a2d33 0 40%, #3a3e46 50%, #2a2d33 60% 100%) 0 0 / 250% 100%; }
+.nda:hover .redact i { animation: shimmer 1.2s linear infinite; }
+.redact i.txt { background: none; color: var(--neon); animation: none; }
+.redact i.deny { color: var(--signal); }
+.nda.hit .stamp { animation: stampHit .5s cubic-bezier(.2,.8,.2,1); }
+@keyframes stampHit { 0% { transform: rotate(4deg) scale(1.8); opacity: 0 } 60% { transform: rotate(-4deg) scale(.95); opacity: 1 } 100% { transform: rotate(4deg) scale(1) } }
+@keyframes shimmer { to { background-position: -150% 0; } }
+.ask { display: inline-flex; gap: 8px; margin-top: 20px; font: 400 12px/1.4 var(--f-mono); color: var(--neon); }
+.ask::before { content: ">"; color: var(--signal); }
+.nda::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, #ffffff06 0 1px, transparent 1px 3px); }
+
+footer { padding-block: 120px 64px; }
+.end { font: 900 clamp(40px, 8vw, 120px)/.9 var(--f-display); letter-spacing: -.045em; margin: 0; }
+
+/* ===== кіберпанк-шар ===== */
+body { background-image: linear-gradient(#0e0f110a 1px, transparent 1px), linear-gradient(90deg, #0e0f110a 1px, transparent 1px); background-size: 64px 64px; background-attachment: fixed; }
+.idx { font-weight: 600; color: var(--ink); }
+.idx::before { content: "[ "; color: var(--signal); }
+.idx::after { content: " ] //"; color: var(--signal); }
+.stage .idx { color: var(--stage-fg); }
+.bar .mono::before { content: "● "; color: var(--signal); animation: blink 1.6s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0 } }
+
+/* glitch на акценті заголовка */
+.glitch { position: relative; display: inline-block; }
+.glitch::before, .glitch::after { content: attr(data-text); position: absolute; inset: 0; pointer-events: none; opacity: 0; }
+.glitch::before { color: var(--neon); transform: translate(-3px, 0); animation: gl1 4.5s infinite steps(1); }
+.glitch::after { color: var(--magenta); transform: translate(3px, 0); animation: gl2 4.5s infinite steps(1); mix-blend-mode: multiply; }
+@keyframes gl1 { 0%, 88%, 100% { opacity: 0 } 89% { opacity: .9; clip-path: inset(10% 0 55% 0) } 91% { opacity: .9; clip-path: inset(60% 0 8% 0); transform: translate(4px, 0) } 93% { opacity: 0 } }
+@keyframes gl2 { 0%, 88%, 100% { opacity: 0 } 90% { opacity: .9; clip-path: inset(40% 0 30% 0) } 92% { opacity: .9; clip-path: inset(5% 0 80% 0); transform: translate(-4px, 0) } 94% { opacity: 0 } }
+
+/* HUD-кути та RGB-зсув на роботах */
+.films figure, .site .shot, .tool .shot { position: relative; }
+.films button.f::before, .films button.f::after { content: ""; position: absolute; z-index: 2; width: 18px; height: 18px; border: 2px solid var(--neon); opacity: 0; transition: opacity .2s, transform .25s; pointer-events: none; }
+.films button.f::before { top: 8px; left: 8px; border-right: 0; border-bottom: 0; transform: translate(6px, 6px); }
+.films button.f::after { bottom: 8px; right: 8px; border-left: 0; border-top: 0; transform: translate(-6px, -6px); }
+.films button.f:hover::before, .films button.f:hover::after, .films button.f:focus-visible::before, .films button.f:focus-visible::after { opacity: 1; transform: none; }
+.films button.f:hover video { filter: drop-shadow(-3px 0 0 #00d8ffaa) drop-shadow(3px 0 0 #ff2bd6aa); }
+.films .play { background: var(--neon); }
+
+/* сцена AE: скан-лінії та неон */
+.stage { position: relative; overflow: hidden; }
+.stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, #ffffff05 0 1px, transparent 1px 3px); }
+.stage h2 { text-shadow: 0 0 24px #00d8ff40; }
+.comp { box-shadow: 0 0 0 1px #00d8ff22, 0 0 40px -10px #00d8ff55; }
+.term { color: #9ff3ff; }
+.stage .btn:hover, .stage .btn.on { background: var(--neon); border-color: var(--neon); color: var(--ink); }
+.viewer .word { color: var(--neon); text-shadow: 0 0 12px #00d8ff88; }
+
+/* інтерактивні елементи */
+.btn.solid:hover { box-shadow: 0 0 0 3px #ff4d1f33; }
+.kbd-demo { box-shadow: 0 0 0 1px #00d8ff33, 0 0 50px -16px #00d8ff88; }
+.kbd-demo input:focus { border-bottom-color: var(--neon); }
+.node.on { background: var(--ink); box-shadow: inset 0 -3px 0 var(--neon); }
+.slot.full { background: var(--ink); border-color: var(--neon); color: var(--neon); }
+.nda { box-shadow: 0 0 0 1px #ff4d1f22; }
+.nda:hover { box-shadow: 0 0 0 1px var(--signal), 0 0 40px -12px #ff4d1f; }
+
+/* ===== НІЧНЕ МІСТО: темна неонова палітра ===== */
+:root {
+  --paper: #05060a; --paper-2: #0c0f16; --ink: #e6edf7; --mute: #7d889c; --rule: #1a2130;
+  --stage: #020307; --panel: #0a0d14; --panel-2: #111622; --edge: #24304a;
+  --neon: #00e5ff; --magenta: #ff2bd6; --volt: #f3ff3a; --signal: #ff3b3b;
+  color-scheme: dark;
+}
+body { background-color: var(--paper); background-image:
+  radial-gradient(1200px 600px at 85% -10%, #ff2bd61f, transparent 60%),
+  radial-gradient(900px 500px at -10% 30%, #00e5ff14, transparent 60%),
+  linear-gradient(#00e5ff0b 1px, transparent 1px), linear-gradient(90deg, #00e5ff0b 1px, transparent 1px);
+  background-size: auto, auto, 48px 48px, 48px 48px; }
+body::after { content: ""; position: fixed; inset: 0; z-index: 25; pointer-events: none;
+  background: repeating-linear-gradient(0deg, #ffffff07 0 1px, transparent 1px 3px), radial-gradient(ellipse at center, transparent 55%, #000000a0 100%); }
+body::before { background: var(--paper); }
+::selection { background: var(--magenta); color: #05060a; }
+
+/* заголовки з неоном та хроматичним зсувом */
+.hero h1 { text-shadow: -2px 0 #ff2bd655, 2px 0 #00e5ff55; }
+.hero h1 em { color: var(--volt); text-shadow: 0 0 30px #f3ff3a66; }
+.glitch::after { mix-blend-mode: screen; }
+.head h2 { text-shadow: -2px 0 #ff2bd666, 2px 0 #00e5ff66, 0 0 40px #00e5ff22; }
+.idx::before, .idx::after { color: var(--magenta); }
+.idx { color: var(--neon); }
+.head p, .mono, figcaption, .note { color: var(--mute); }
+section.s { position: relative; }
+section.s::before { content: ""; position: absolute; top: 56px; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, var(--neon), #00e5ff00 40%, #ff2bd600 60%, var(--magenta)); opacity: .5; }
+
+/* кнопки зі зрізаними кутами */
+.btn, .lang, .chip, .mode, .shot, .kbd-demo, .nda, .comp, .trainer, .pipe, .films button.f, .slot, .key kbd, .lb video {
+  border-radius: 0 !important;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+.btn { border-color: var(--edge); color: var(--ink); text-transform: uppercase; letter-spacing: .06em; font-size: 12px; }
+.btn:hover, .filters .btn[aria-pressed="true"], .tabs .btn[aria-pressed="true"] { background: var(--neon); border-color: var(--neon); color: #05060a; box-shadow: 0 0 24px #00e5ff66; }
+.btn.solid { background: var(--magenta); border-color: var(--magenta); color: #05060a; }
+.btn.solid:hover { background: var(--volt); border-color: var(--volt); color: #05060a; }
+.lang { border-color: var(--edge); }
+.lang button { color: var(--mute); }
+.lang button[aria-pressed="true"] { background: var(--neon); color: #05060a; }
+.bar nav a:hover { color: var(--neon); text-shadow: 0 0 10px var(--neon); }
+
+/* роботи */
+.films video, figure video { background: var(--panel); }
+.films .play { background: var(--volt); color: #05060a; }
+.reel { position: relative; }
+.reel::after { content: "● REC  //  SHOWREEL_FEED"; position: absolute; top: 12px; left: max(20px, env(safe-area-inset-left, 0px)); font: 600 11px/1 var(--f-mono); letter-spacing: .1em; color: var(--signal); text-shadow: 0 0 8px var(--signal); pointer-events: none; }
+
+/* поверхні */
+.shot { box-shadow: 0 0 0 1px var(--edge), 0 30px 80px -30px #00e5ff40; background: var(--panel); }
+.kbd-demo, .nda, .trainer, .pipe, .mode { background: var(--panel); color: var(--ink); }
+.kbd-demo input { color: var(--volt); border-bottom-color: var(--edge); text-shadow: 0 0 18px #f3ff3a55; }
+.mode { border-color: var(--edge); }
+.mode span, .node span { color: var(--mute); }
+.mode[aria-pressed="true"] { background: var(--panel-2); border-color: var(--neon); box-shadow: inset 4px 0 0 var(--neon), 0 0 30px -10px #00e5ff88; }
+.trainer { border-color: var(--edge); }
+.trainer .q b { color: var(--volt); }
+.chip { background: transparent; border-color: var(--edge); color: var(--ink); }
+.chip:hover { background: var(--neon); color: #05060a; border-color: var(--neon); }
+.slot { border-color: var(--edge); }
+.slot.full { background: #00e5ff18; color: var(--neon); border-color: var(--neon); }
+.verdict.ok { color: var(--volt); }
+.pipe { border-color: var(--edge); }
+.node { border-color: var(--edge) !important; }
+.node.on { background: var(--panel-2); color: var(--ink); box-shadow: inset 0 -3px 0 var(--neon), inset 0 0 40px #00e5ff22; }
+.node.done::after { background: var(--magenta); box-shadow: 0 0 12px var(--magenta); }
+.post b { color: var(--volt); }
+.nda { box-shadow: 0 0 0 1px #ff2bd633; }
+.nda:hover { box-shadow: 0 0 0 1px var(--magenta), 0 0 50px -12px var(--magenta); }
+.nda p { color: var(--mute); }
+.redact i { background: linear-gradient(90deg, #161c28 0 40%, #26304a 50%, #161c28 60% 100%) 0 0 / 250% 100%; }
+.stamp { color: var(--magenta); border-color: var(--magenta); text-shadow: 0 0 10px var(--magenta); }
+.redact i.deny { color: var(--signal); text-shadow: 0 0 10px var(--signal); }
+.ask { color: var(--neon); }
+
+/* сцена AE */
+.stage { background: var(--stage); border-block: 1px solid var(--edge); }
+.stage::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(700px 400px at 80% 20%, #00e5ff18, transparent 70%); }
+.comp { background: #070a10; }
+.end { text-shadow: -3px 0 #ff2bd666, 3px 0 #00e5ff66; }
+
+/* HUD: курсор і показники */
+.cur { position: fixed; z-index: 26; left: 0; top: 0; width: 34px; height: 34px; margin: -17px 0 0 -17px; pointer-events: none; border: 1px solid var(--neon); box-shadow: 0 0 12px #00e5ff88; clip-path: polygon(0 0, 30% 0, 30% 2px, 2px 2px, 2px 30%, 0 30%, 0 0, 100% 0, 100% 30%, calc(100% - 2px) 30%, calc(100% - 2px) 2px, 70% 2px, 70% 0, 100% 0, 100% 100%, 70% 100%, 70% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 70%, 100% 70%, 100% 100%, 0 100%, 0 70%, 2px 70%, 2px calc(100% - 2px), 30% calc(100% - 2px), 30% 100%, 0 100%); transition: width .15s, height .15s, margin .15s, border-color .15s; opacity: 0; }
+.cur.on { opacity: 1; }
+.cur.hot { width: 52px; height: 52px; margin: -26px 0 0 -26px; border-color: var(--magenta); box-shadow: 0 0 16px #ff2bd6aa; }
+.hud { position: fixed; z-index: 26; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); left: max(20px, env(safe-area-inset-left, 0px)); font: 400 11px/1.5 var(--f-mono); letter-spacing: .08em; color: var(--neon); text-shadow: 0 0 8px #00e5ff88; pointer-events: none; display: flex; gap: 16px; background: #05060acc; padding: 6px 10px; }
+.hud b { color: var(--magenta); font-weight: 600; }
+@media (hover: none) { .cur { display: none; } }
+@media (max-width: 640px) { .hud { display: none; } }
+
+/* ===== нові елементи ===== */
+.tools-bar { display: inline-flex; gap: 6px; }
+.ctl { display: inline-flex; gap: 10px; align-items: center; }
+.bar nav { margin-left: auto; }
+@media (max-width: 760px) { .bar .mono { flex: 1; min-width: 0; } .bar nav { order: 3; margin-left: 0; } }
+.ibtn { border: 1px solid var(--edge); background: transparent; color: var(--neon); font: 600 12px/1 var(--f-mono); padding: 7px 10px; cursor: pointer; clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px); }
+.ibtn:hover { background: var(--neon); color: #05060a; }
+.ibtn[aria-pressed="true"] { background: var(--magenta); border-color: var(--magenta); color: #05060a; }
+.shot { cursor: zoom-in; }
+.shot::after { content: "⤢"; position: absolute; right: 12px; top: 10px; font: 600 14px/1 var(--f-mono); color: var(--neon); background: #05060acc; padding: 6px 8px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+.shot:hover::after { opacity: 1; }
+.reel video { cursor: zoom-in; }
+
+/* переглядач */
+.lb { grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; }
+.lb-fig { margin: 0; display: grid; justify-items: center; min-width: 0; grid-column: 2; }
+.lb-fig video, .lb-fig img { max-height: 80vh; max-width: 100%; object-fit: contain; box-shadow: 0 0 0 1px var(--edge), 0 0 80px -20px #00e5ff88; }
+.lb-fig figcaption { color: var(--neon); font: 400 12px/1.4 var(--f-mono); margin-top: 14px; text-align: center; letter-spacing: .06em; display: block; }
+.lnav { width: 48px; height: 64px; border: 1px solid var(--edge); background: #05060acc; color: var(--neon); font: 300 30px/1 var(--f-display); cursor: pointer; clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); }
+.lnav.prev { grid-column: 1; grid-row: 1; } .lnav.next { grid-column: 3; grid-row: 1; }
+.lnav:hover { background: var(--neon); color: #05060a; }
+.lb .x { z-index: 2; color: var(--neon); border-color: var(--edge); border-radius: 0; }
+
+/* командний рядок */
+.pal { position: fixed; inset: 0; z-index: 40; background: #02030699; backdrop-filter: blur(6px); display: grid; align-items: start; justify-items: center; padding: calc(12vh + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) 16px max(16px, env(safe-area-inset-left, 0px)); }
+.pal-box { width: min(640px, 100%); background: var(--panel); box-shadow: 0 0 0 1px var(--neon), 0 0 60px -10px #00e5ffaa; clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px); }
+.pal-in { display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--edge); font: 600 16px/1 var(--f-mono); color: var(--magenta); }
+.pal-in input { flex: 1; min-width: 0; background: transparent; border: 0; outline: none; color: var(--ink); font: 400 17px/1.3 var(--f-mono); }
+.pal-in input::placeholder { color: var(--mute); }
+#pal-list { list-style: none; margin: 0; padding: 6px; max-height: 50vh; overflow: auto; }
+#pal-list li { display: flex; gap: 14px; align-items: baseline; padding: 10px 12px; cursor: pointer; font: 400 13px/1.3 var(--f-mono); color: var(--mute); }
+#pal-list li b { color: var(--neon); min-width: 64px; font-weight: 600; }
+#pal-list li[aria-selected="true"], #pal-list li:hover { background: #00e5ff14; color: var(--ink); box-shadow: inset 3px 0 0 var(--neon); }
+#pal-list li.none { cursor: default; color: var(--signal); }
+.pal-foot { margin: 0; padding: 10px 18px; border-top: 1px solid var(--edge); font: 400 11px/1.4 var(--f-mono); color: var(--mute); }
+
+/* тост */
+.toast { position: fixed; z-index: 45; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--volt); color: #05060a; font: 600 12px/1 var(--f-mono); letter-spacing: .06em; padding: 12px 16px; clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); box-shadow: 0 0 30px #f3ff3a66; }
+
+/* футер */
+.foot-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px; }
+.foot-note { margin-top: 20px; max-width: 70ch; }
+
+/* глітч сторінки */
+body.glitching .g, body.glitching .reel, body.glitching .stage { animation: pageGlitch .5s steps(2) 1; }
+@keyframes pageGlitch {
+  0% { transform: translate(0); filter: none; }
+  20% { transform: translate(-6px, 2px); filter: drop-shadow(4px 0 0 #ff2bd6) drop-shadow(-4px 0 0 #00e5ff); clip-path: inset(10% 0 40% 0); }
+  40% { transform: translate(5px, -2px); clip-path: inset(50% 0 5% 0); }
+  60% { transform: translate(-3px, 0); clip-path: inset(0 0 70% 0); filter: hue-rotate(60deg); }
+  80% { transform: translate(2px, 1px); clip-path: none; filter: none; }
+  100% { transform: none; }
+}
+
+/* ===== адаптив ===== */
+@media (max-width: 760px) {
+  .bar { gap: 12px; }
+  .bar nav { width: 100%; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; gap: 14px; }
+  .bar nav::-webkit-scrollbar { display: none; }
+  .bar nav a { white-space: nowrap; }
+  .tools-bar, .lang { flex: none; }
+  .hero { padding-block: 28px 24px; }
+  .hero .sub p { font-size: 17px; }
+  .track video { height: 340px; }
+  section.s { padding-block: 72px 0; }
+  .stage { margin-top: 72px; padding-block: 64px; }
+  .head { margin-bottom: 24px; }
+  .tool { padding-block: 40px; }
+  .comp-top { font-size: 11px; }
+  .cmds .btn { padding: 8px 10px; font-size: 11px; }
+  .lb { grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr auto; padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
+  .lb-fig { grid-column: 1; }
+  .lnav { display: none; }
+  .lb-fig video, .lb-fig img { max-height: 72vh; }
+  .nda { padding: 28px 22px 32px; }
+  .stamp { top: 16px; right: 16px; }
+  .redact i { font-size: 11px; }
+  footer { padding-block: 80px 48px; }
+}
+@media (max-width: 420px) {
+  .layer { grid-template-columns: 18px 128px 1fr; }
+  .ruler { margin-left: 146px; }
+  .films figure.v { grid-column: span 3; }
+  .trainer .slot { min-width: 76px; }
+}
+
+@media (max-width: 960px) {
+  .head, .ae, .tool, .tool.flip, .sites, .crm, .modes { grid-template-columns: minmax(0, 1fr); }
+  .tool.flip .vis { order: 0; }
+  .films { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .films figure.w { grid-column: span 6; }
+  .films figure.v { grid-column: span 2; }
+  .pipe { grid-template-columns: minmax(0, 1fr); }
+  .node { border-left: 0; border-top: 1px solid var(--rule); }
+  .node:first-child { border-top: 0; }
+  section.s { padding-block: 88px 0; }
+  .modes .shot { margin-inline: auto; }
+}
+@media (max-width: 560px) {
+  .films figure.v { grid-column: span 3; }
+  .layer { grid-template-columns: 22px 150px 1fr; }
+  .ruler { margin-left: 172px; }
+  .kbd-demo { padding: 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before { animation: none !important; transition: none !important; }
+}
+</style>
+
+<div class="g">
+  <div class="in">
+    <header class="bar" id="top">
+      <span class="mono" data-t="tag"></span>
+      <nav aria-label="Sections">
+        <a href="#motion" data-t="navMotion"></a><a href="#ae">After Effects</a><a href="#tools" data-t="navTools"></a><a href="#sites" data-t="navSites"></a><a href="#auto" data-t="navAuto"></a><a href="#crm">CRM</a>
+      </nav>
+      <span class="ctl">
+        <span class="tools-bar"><button class="ibtn" type="button" id="open-pal" aria-label="Command line" title="/ · Ctrl+K">&gt;_</button><button class="ibtn" type="button" id="sfx-t" aria-pressed="false" title="Sound">SFX</button></span>
+        <span class="lang" role="group" aria-label="Language"><button type="button" id="l-en" data-lang="en">EN</button><button type="button" id="l-uk" data-lang="uk">UK</button></span>
+      </span>
+    </header>
+    <div class="hero">
+      <h1 data-t="h1"></h1>
+      <div class="sub"><p data-t="lede"></p></div>
+    </div>
+  </div>
+</div>
+
+<div class="reel" id="reel" aria-label="Vertical films">
+  <div class="track" id="track"></div>
+</div>
+<div class="g"><div class="in"><p class="mono reel-hint" data-t="reelHint"></p></div></div>
+
+<div class="g">
+  <div class="in">
+    <section class="s" id="motion">
+      <div class="head">
+        <div><span class="idx">01</span><h2 data-t="motionH"></h2></div>
+        <p data-t="motionP"></p>
+      </div>
+      <div class="filters" role="group" aria-label="Format">
+        <button class="btn" type="button" id="fl-all" data-f="all" aria-pressed="true" data-t="fAll"></button>
+        <button class="btn" type="button" id="fl-w" data-f="w" aria-pressed="false">16:9</button>
+        <button class="btn" type="button" id="fl-v" data-f="v" aria-pressed="false">9:16</button>
+      </div>
+      <div class="films" id="films"></div>
+      <p class="note" data-t="motionNote"></p>
+    </section>
+  </div>
+</div>
+
+<section class="stage g" id="ae">
+  <div class="in">
+    <div class="head">
+      <div><span class="idx" data-t="aeIdx"></span><h2 data-t="aeH"></h2></div>
+      <p data-t="aeP"></p>
+    </div>
+    <div class="ae">
+      <div class="facts">
+        <ul>
+          <li><b data-t="f1b"></b> <span data-t="f1"></span></li>
+          <li><b data-t="f2b"></b> <span data-t="f2"></span></li>
+          <li><b data-t="f3b"></b> <span data-t="f3"></span></li>
+          <li><b data-t="f4b"></b> <span data-t="f4"></span></li>
+        </ul>
+        <span class="mono">After Effects · ExtendScript / JSX · MCP · Python · Whisper · BiRefNet</span>
+        <p data-t="aeRes"></p>
+      </div>
+      <div>
+        <div class="cmds" id="cmds"></div>
+        <div class="comp">
+          <div class="comp-top"><span>Ad_9x16_1080 · 30 fps</span><span id="tc">00:00:00:00</span></div>
+          <div class="term" id="term" aria-live="polite"></div>
+          <div class="layers" id="layers">
+            <div class="ruler" id="ruler"></div>
+            <div id="layerList"></div>
+            <div class="ph" id="ph"></div>
+          </div>
+          <div class="viewer"><span data-t="viewer"></span><span class="word" id="word">—</span></div>
+        </div>
+        <p class="cap" data-t="aeCap"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="g">
+  <div class="in">
+    <section class="s" id="tools">
+      <div class="head">
+        <div><span class="idx">03</span><h2 data-t="toolsH"></h2></div>
+        <p data-t="toolsP"></p>
+      </div>
+
+      <div class="tool">
+        <div class="vis">
+          <div class="tabs" role="group">
+            <button class="btn" type="button" id="mt-bg" data-shot="media" data-i="0" aria-pressed="true" data-t="tabBg"></button>
+            <button class="btn" type="button" id="mt-voice" data-shot="media" data-i="1" aria-pressed="false" data-t="tabVoice"></button>
+          </div>
+          <div class="shot tilt" data-tilt id="shot-media" data-capk="capMedia"><img src="media/shot-media.jpg" alt="" loading="lazy"><img class="off" src="media/shot-media-voice.jpg" alt="" loading="lazy"></div>
+        </div>
+        <div>
+          <h3 data-t="mediaH"></h3>
+          <p data-t="mediaP1"></p>
+          <p data-t="mediaP2"></p>
+          <span class="mono">Python · WebView2 · FFmpeg · PyTorch CUDA · Whisper · BiRefNet · Real-ESRGAN · RIFE</span>
+        </div>
+      </div>
+
+      <div class="tool flip">
+        <div class="vis">
+          <div class="tabs" role="group">
+            <button class="btn" type="button" id="sh-home" data-shot="shell" data-i="0" aria-pressed="true" data-t="tabHome"></button>
+            <button class="btn" type="button" id="sh-lp" data-shot="shell" data-i="1" aria-pressed="false">Launchpad</button>
+          </div>
+          <div class="shot tilt" data-tilt id="shot-shell" data-capk="capShell"><img src="media/shot-shell.jpg" alt="" loading="lazy"><img class="off" src="media/shot-launchpad.jpg" alt="" loading="lazy"></div>
+        </div>
+        <div>
+          <h3 data-t="shellH"></h3>
+          <p data-t="shellP"></p>
+          <span class="mono">Electron · C# · Win32 · DWM</span>
+        </div>
+      </div>
+
+      <div class="tool">
+        <div class="vis modes">
+          <div class="shot" data-capk="capModes"><img src="media/shot-modes.jpg" alt="" loading="lazy"></div>
+          <div class="mode-list" id="modes"></div>
+        </div>
+        <div>
+          <h3 data-t="modesH"></h3>
+          <p data-t="modesP1"></p>
+          <p data-t="modesP2"></p>
+          <span class="mono">PowerShell · WinForms · Task Scheduler</span>
+        </div>
+      </div>
+
+      <div class="tool flip">
+        <div class="vis">
+          <div class="kbd-demo">
+            <label for="lf-input" data-t="lfLabel"></label>
+            <input id="lf-input" type="text" value="ghbdsn? zr cghfdb" autocomplete="off" spellcheck="false">
+            <div class="key"><kbd id="pause" role="button" tabindex="0">Pause</kbd><span data-t="lfHint"></span></div>
+          </div>
+        </div>
+        <div>
+          <h3 data-t="lfH"></h3>
+          <p data-t="lfP"></p>
+          <span class="mono">C# · Win32</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="s" id="sites">
+      <div class="head">
+        <div><span class="idx">04</span><h2 data-t="sitesH"></h2></div>
+        <p data-t="sitesP"></p>
+      </div>
+      <div class="sites">
+        <article class="site">
+          <div class="shot tilt" data-tilt data-capk="capSpider"><img src="media/shot-spider.jpg" alt="Spider Combo Lab" loading="lazy"></div>
+          <h3>Spider Combo Lab</h3>
+          <p data-t="spiderP"></p>
+          <span class="mono">Next.js · React · Cloudflare Workers</span>
+          <div class="trainer">
+            <div class="q"><span data-t="trQ"></span><b id="tr-name"></b></div>
+            <div class="slots" id="slots"></div>
+            <div class="pool" id="pool"></div>
+            <div class="verdict" id="verdict" aria-live="polite"></div>
+          </div>
+          <div class="links"><a class="btn" href="https://spider-combo-lab.spacegypsy.workers.dev/" target="_blank" rel="noopener" data-t="openSite"></a></div>
+        </article>
+        <article class="site">
+          <div class="shot tilt" data-tilt data-capk="capSmm"><img src="media/shot-smm.jpg" alt="" loading="lazy"></div>
+          <h3 data-t="smmH"></h3>
+          <p data-t="smmP"></p>
+          <span class="mono">JavaScript · Node.js · GitHub Pages</span>
+          <div class="links"><a class="btn" href="https://motionsharingan-bot.github.io/viktoriia-bondar/" target="_blank" rel="noopener" data-t="openSite"></a></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="s" id="auto">
+      <div class="head">
+        <div><span class="idx">05</span><h2 data-t="autoH"></h2></div>
+        <p data-t="autoP"></p>
+      </div>
+      <div class="pipe" id="pipe"></div>
+      <div class="pipe-out">
+        <span class="post" id="post" aria-live="polite"></span>
+        <button class="btn solid" type="button" id="run" data-t="run"></button>
+      </div>
+      <p class="note">n8n · Groq · Gemini · Telegram API</p>
+    </section>
+
+    <section class="s" id="crm">
+      <div class="head">
+        <div><span class="idx">06</span><h2 data-t="crmH"></h2></div>
+        <p data-t="crmP"></p>
+      </div>
+      <div class="crm">
+        <button type="button" class="nda" id="nda-1">
+          <span class="stamp">NDA</span>
+          <h3 data-t="crm1H"></h3>
+          <p data-t="crm1P"></p>
+          <span class="redact" aria-hidden="true"><i style="width:82%"></i><i style="width:64%"></i><i style="width:91%"></i><i style="width:47%"></i></span>
+          <span class="ask" data-t="crmAsk"></span>
+        </button>
+        <button type="button" class="nda" id="nda-2">
+          <span class="stamp">NDA</span>
+          <h3 data-t="crm2H"></h3>
+          <p data-t="crm2P"></p>
+          <span class="redact" aria-hidden="true"><i style="width:74%"></i><i style="width:93%"></i><i style="width:58%"></i><i style="width:80%"></i></span>
+          <span class="ask" data-t="crmAsk"></span>
+        </button>
+      </div>
+    </section>
+
+    <footer>
+      <p class="end" data-t="end"></p>
+      <div class="foot-row">
+        <button class="btn solid" type="button" id="copy-link" data-t="copyLink"></button>
+        <button class="btn" type="button" id="foot-pal" data-t="tryCmd"></button>
+        <a class="btn" href="#top" id="to-top" data-t="toTop"></a>
+      </div>
+      <p class="mono foot-note" data-t="footNote"></p>
+    </footer>
+  </div>
+</div>
+
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div class="hud" id="hud" aria-hidden="true"><span>SYS://SHOWREEL</span><span id="hud-sec"><b>SEC</b> 00</span><span id="hud-xy">X 0000 · Y 0000</span><span id="hud-t">--:--:--</span></div>
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Viewer">
+  <button class="x" type="button" id="lb-x" data-t="close"></button>
+  <button class="lnav prev" type="button" id="lb-prev" aria-label="Previous">‹</button>
+  <figure class="lb-fig"><video id="lb-v" muted loop playsinline></video><img id="lb-i" alt="" hidden><figcaption id="lb-c"></figcaption></figure>
+  <button class="lnav next" type="button" id="lb-next" aria-label="Next">›</button>
+</div>
+
+<div class="pal" id="pal" hidden role="dialog" aria-modal="true" aria-label="Command line">
+  <div class="pal-box">
+    <div class="pal-in"><span>&gt;_</span><input id="pal-q" type="text" autocomplete="off" spellcheck="false" aria-label="Command"></div>
+    <ul id="pal-list" role="listbox"></ul>
+    <p class="pal-foot" data-t="palFoot"></p>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+const T = {
+  en: {
+    tag: "Showreel · vibe coding · 2026",
+    navMotion: "Motion", navTools: "Tools", navSites: "Websites", navAuto: "Automation",
+    h1: "Motion and software, built with an <em>AI&#8209;agent</em>",
+    lede: "I'm a motion designer. I set the task, direct the agent and sign off on the result like an art director.",
+    reelHint: "Drag the reel ↔",
+    motionH: "Motion,<br>written in code",
+    motionP: "Product films and digital-product spots made without an editing app. Choreography, 3D, glass and music are code, rendered to MP4 at 60 fps. Click a film to watch it large.",
+    fAll: "All",
+    motionNote: "HyperFrames & Remotion · GSAP · Three.js · the score is composed in code on the same cut points as the picture, so sound drives the edit.",
+    watch: "Watch",
+    aeIdx: "02 · key case",
+    aeH: "After Effects,<br>driven by an agent",
+    aeP: "The agent builds an ad inside my AE project: lays out layers, adds captions, sound and masks. I review, give notes in plain words and approve.",
+    f1b: "Own JSX library.", f1: "Eased animation, rigs, markers, footage import, text and sound. The agent calls it through MCP.",
+    f2b: "Editing from speech.", f2: "The voice-over is transcribed, the cut is planned from it, captions appear word by word, sounds land on the beats.",
+    f3b: "Neural nets in the pipeline.", f3: "The actor is cut out without a green screen, tricky masks are built frame by frame.",
+    f4b: "Safe by design.", f4: "The agent only touches a working copy. I start the render.",
+    aeRes: "Result: ads approved by the client. The retention techniques became a template for the next ones.",
+    viewer: "Viewer",
+    aeCap: "Try it: give the agent commands, then drag the playhead. This is a diagram of the process; client footage is not shown.",
+    build: "Build all", reset: "Reset",
+    toolsH: "Tools<br>I use every day",
+    toolsP: "Software for my own PC: instead of online services, extra clicks and paid utilities.",
+    tabBg: "Remove background", tabVoice: "Change voice",
+    mediaH: "A media tool instead of online services",
+    mediaP1: "One local app instead of ElevenLabs, remove.bg, converters and compressors: compress, trim, remove backgrounds, upscale, slow motion, denoise, change voices, transcribe.",
+    mediaP2: "Free and offline. Nothing keeps running after it closes, so the PC stays ready for games.",
+    tabHome: "Home",
+    shellH: "My own desktop shell",
+    shellP: "A transparent layer over live wallpaper: games, AE projects, quick folders. Plus a menu bar, a Dock, a Launchpad on the Win key and its own tray, macOS-style.",
+    modesH: "PC modes in one click",
+    modesP1: "Editing, gaming or watching: power plan and background apps switch on their own.",
+    modesP2: "Along the way we found why the PC kept shutting down (power cuts) and added restoring open apps after a crash.",
+    lfH: "Keyboard layout, fixed with one key",
+    lfP: "Typed in the wrong layout? Pause retypes the word or the selection. I write in three languages, so this saves me every day.",
+    lfLabel: "Type something with the wrong layout",
+    lfHint: "press Pause (or click it) · EN ↔ UK",
+    sitesH: "Websites",
+    sitesP: "From a giant spreadsheet to a product with a trainer, and from a portfolio to a site the client edits herself.",
+    spiderP: "A Spider-Man combo spreadsheet from Marvel Rivals became a knowledge base: action chains with PC and DualSense buttons, an animation-cancel map and a trainer where you rebuild combos from memory.",
+    trQ: "Mini trainer · build the combo:", trOk: "Combo complete. That's the site's Web Lab in miniature.", trBad: "Not that one. Try again.", trAgain: "Next combo",
+    openSite: "Open the site ↗",
+    smmH: "Portfolio for an SMM specialist",
+    smmP: "A site plus an edit page: the client changes texts herself, and a script moves them into the code. No developer needed.",
+    autoH: "Automation",
+    autoP: "A Ukrainian-language Telegram channel about Marvel Rivals that runs itself, from sources to a finished post with a branded image.",
+    n: [["Sources", "news sites and feeds"], ["Filter", "normalise and drop the noise"], ["AI", "rewrites the story in Ukrainian"], ["Layout", "image with a badge and watermark"], ["Post", "on schedule, no hands"]],
+    run: "Run the pipeline ▶", running: "Running…", posted: "<b>Posted.</b> A fresh story is in the channel.",
+    crmH: "Systems<br>for teams",
+    crmP: "I designed the workflow logic of two CRMs for real teams. Both are under NDA, so only the gist is here.",
+    crm1H: "CRM for a design agency", crm1P: "How a design agency team works, built into a CRM.",
+    crm2H: "CRM for a media-buying team", crm2P: "How a media-buying team works, built into a CRM.",
+    crmAsk: "click to decrypt",
+    crmDeny: ["ACCESS DENIED", "client data · under NDA", "decryption key: a call with me", "████████████████████"],
+    end: "Happy to tell more<br>about any case.",
+    close: "Close ✕",
+    cap: { prod: "Product film", story: "Story spot", digital: "Digital product", ui3d: "3D interface", site: "Website in motion" },
+    modes: [["Editing & design", "High power · AE and Premiere first · no sleep during render"], ["Gaming", "High power · closes background apps, Chrome, Voicemod"], ["Watching", "Quiet power · screen stays on · closes launchers and Docker"]],
+    cmds: ["Transcribe VO", "Word captions", "Cut out actor", "Sky mask", "SFX on markers", "Music on the beat", "Grade"],
+    layers: ["Voice-over · transcript", "Captions · word by word", "Actor · no green screen", "Sky · frame-by-frame mask", "SFX · on markers", "Music · on the beat", "Grade · vignette · grain"],
+    logs: ["whisper → 38 words, timings ready", "captions → one layer per phrase", "birefnet → actor matte", "sky key → mask per frame", "markers → whoosh, hit, tick", "beat grid → cut on downbeats", "grade → vignette, mono grain"],
+    termIdle: "waiting for a command…",
+    words: ["Your", "next", "trip", "starts", "right", "here."],
+    capMedia: "Media tool", capShell: "Desktop shell", capModes: "PC modes panel", capSpider: "Spider Combo Lab", capSmm: "SMM portfolio site",
+    copyLink: "Copy link to this page", copied: "Link copied", copyFail: "Copy the address from the browser bar",
+    tryCmd: "Open the command line  >_", toTop: "Back to top ↑",
+    footNote: "Tip: press / anywhere to open the command line. Arrows flip through films and screenshots in the viewer.",
+    palFoot: "↑↓ choose · Enter run · Esc close",
+    palPh: "type a command: ae, tools, uk, sfx…",
+    cmd: { motion: "go → motion films", ae: "go → After Effects", tools: "go → tools", sites: "go → websites", auto: "go → automation", crm: "go → CRM", top: "go → top",
+      build: "ae → build the whole composition", run: "bot → run the pipeline", decrypt: "crm → try to decrypt", reel: "play → open the showreel viewer",
+      en: "lang → English", uk: "lang → Українська", sfx: "sfx → toggle interface sound", glitch: "fx → glitch the page", copy: "share → copy page link" },
+    noCmd: "no such command",
+    sfxOn: "Sound on", sfxOff: "Sound off"
+  },
+  uk: {
+    tag: "Шоурил · вайбкодинг · 2026",
+    navMotion: "Моушн", navTools: "Інструменти", navSites: "Сайти", navAuto: "Автоматизація",
+    h1: "Моушн і софт, зібрані <em>з AI&#8209;агентом</em>",
+    lede: "Я моушн-дизайнер. Ставлю задачу, веду агента й приймаю результат як арт-директор.",
+    reelHint: "Тягніть стрічку ↔",
+    motionH: "Моушн,<br>написаний кодом",
+    motionP: "Продуктові фільми й ролики про digital-продукти без жодної монтажної програми. Хореографія, 3D, скло й музика — це код, що рендериться в MP4, 60 fps. Натисніть на фільм, щоб подивитися великим.",
+    fAll: "Усі",
+    motionNote: "HyperFrames і Remotion · GSAP · Three.js · музика пишеться кодом на тих самих монтажних точках, що й картинка, тож звук веде монтаж.",
+    watch: "Дивитись",
+    aeIdx: "02 · головний кейс",
+    aeH: "After Effects<br>під керуванням агента",
+    aeP: "Агент збирає рекламний ролик просто в моєму проєкті AE: розкладає шари, ставить субтитри, звук і маски. Я дивлюся, правлю словами й приймаю.",
+    f1b: "Власна бібліотека JSX.", f1: "Анімація з плавністю, риги, маркери, імпорт футажу, текст і звук. Агент викликає її через MCP.",
+    f2b: "Монтаж за мовленням.", f2: "Озвучку розшифровано, за нею сплановано нарізку, субтитри з'являються по словах, звуки стають на долі.",
+    f3b: "Нейромережі в пайплайні.", f3: "Актора вирізано без хромакею, складні маски будуються покадрово.",
+    f4b: "Безпечно.", f4: "Агент змінює лише робочу копію. Рендер запускаю я.",
+    aeRes: "Результат: ролики, схвалені клієнтом. Прийоми утримання уваги стали шаблоном для наступних.",
+    viewer: "Перегляд",
+    aeCap: "Спробуйте: дайте агенту команди, потім потягніть плейхед. Це схема процесу; кадри клієнтських роликів не показую.",
+    build: "Зібрати все", reset: "Скинути",
+    toolsH: "Інструменти,<br>якими я користуюсь",
+    toolsP: "Програми для власного ПК: замість онлайн-сервісів, зайвих кліків і платних утиліт.",
+    tabBg: "Прибрати фон", tabVoice: "Змінити голос",
+    mediaH: "Медіаінструмент замість онлайн-сервісів",
+    mediaP1: "Один локальний застосунок замість ElevenLabs, remove.bg, конвертерів і компресорів: стиснення, обрізка, видалення фону, апскейл, слоумо, шумодав, зміна голосу, розшифровка.",
+    mediaP2: "Безкоштовно й без інтернету. Після закриття не лишається жодного процесу, тож ПК знову готовий до ігор.",
+    tabHome: "Головна",
+    shellH: "Власна оболонка робочого столу",
+    shellP: "Прозорий шар поверх живих шпалер: ігри, проєкти AE, швидкі теки. А ще рядок меню, Док, Launchpad на клавіші Win і власний трей у дусі macOS.",
+    modesH: "Режими ПК в один клік",
+    modesP1: "Монтаж, ігри чи перегляд: план живлення й фонові програми перемикаються самі.",
+    modesP2: "Принагідно знайшли, чому ПК раптово вимикався (зникало світло), і додали відновлення відкритих програм після збою.",
+    lfH: "Розкладка однією клавішею",
+    lfP: "Набрали не в тій розкладці? Pause передруковує слово чи виділення. Я пишу трьома мовами, тож це рятує щодня.",
+    lfLabel: "Наберіть щось не в тій розкладці",
+    lfHint: "натисніть Pause (або клацніть) · EN ↔ UK",
+    sitesH: "Сайти",
+    sitesP: "Від величезної таблиці до продукту з тренажером і від портфоліо до сайту, який клієнтка править сама.",
+    spiderP: "Таблицю комбо Людини-павука з Marvel Rivals перетворено на базу знань: ланцюжки дій із кнопками PC і DualSense, мапа скасувань анімацій і тренажер, де комбо збирають з пам'яті.",
+    trQ: "Міні-тренажер · зберіть комбо:", trOk: "Комбо зібрано. Це Web Lab із сайту в мініатюрі.", trBad: "Не те. Спробуйте ще.", trAgain: "Наступне комбо",
+    openSite: "Відкрити сайт ↗",
+    smmH: "Портфоліо SMM-фахівчині",
+    smmP: "Сайт плюс сторінка правок: клієнтка сама змінює тексти, а скрипт переносить їх у код. Без розробника.",
+    autoH: "Автоматизація",
+    autoP: "Україномовний Telegram-канал про Marvel Rivals, що веде себе сам: від джерел до готового поста з брендованою картинкою.",
+    n: [["Джерела", "новинні сайти й стрічки"], ["Відбір", "нормалізація й відсів шуму"], ["AI", "переписує новину українською"], ["Верстка", "картинка з плашкою й водяним знаком"], ["Пост", "за розкладом, без рук"]],
+    run: "Запустити конвеєр ▶", running: "Працює…", posted: "<b>Опубліковано.</b> Свіжа новина вже в каналі.",
+    crmH: "Системи<br>для команд",
+    crmP: "Продумав логіку роботи двох CRM для реальних команд. Обидві під NDA, тож тут лише суть.",
+    crm1H: "CRM для дизайн-агенції", crm1P: "Як працює команда дизайн-агенції, вбудовано в CRM.",
+    crm2H: "CRM для медіабаїнгу", crm2P: "Як працює команда медіабаїнгу, вбудовано в CRM.",
+    crmAsk: "клікніть, щоб розшифрувати",
+    crmDeny: ["ДОСТУП ЗАБОРОНЕНО", "дані клієнта · під NDA", "ключ розшифрування: дзвінок зі мною", "████████████████████"],
+    end: "Розповім більше<br>про будь-який кейс.",
+    close: "Закрити ✕",
+    cap: { prod: "Продуктовий фільм", story: "Ролик-історія", digital: "Digital-продукт", ui3d: "Інтерфейс у 3D", site: "Сайт у ролику" },
+    modes: [["Монтаж і дизайн", "Високе живлення · AE і Premiere першими · ПК не засне під час рендеру"], ["Ігри", "Високе живлення · закриває фон, Chrome, Voicemod"], ["Перегляд", "Тихе живлення · екран не згасне · закриває лаунчери й Docker"]],
+    cmds: ["Розшифрувати озвучку", "Субтитри по словах", "Вирізати актора", "Маска неба", "SFX на маркери", "Музика в біт", "Грейд"],
+    layers: ["Озвучка · розшифровка", "Субтитри · по словах", "Актор · без хромакею", "Небо · покадрова маска", "SFX · на маркерах", "Музика · в біт", "Грейд · віньєтка · зерно"],
+    logs: ["whisper → 38 слів, таймінги готові", "субтитри → шар на кожну фразу", "birefnet → маска актора", "sky key → маска на кожен кадр", "маркери → whoosh, hit, tick", "сітка біту → склейки на сильну долю", "грейд → віньєтка, моно-зерно"],
+    termIdle: "чекаю на команду…",
+    words: ["Твоя", "наступна", "подорож", "починається", "тут."],
+    capMedia: "Медіаінструмент", capShell: "Оболонка робочого столу", capModes: "Панель режимів ПК", capSpider: "Spider Combo Lab", capSmm: "Сайт-портфоліо SMM",
+    copyLink: "Скопіювати посилання", copied: "Посилання скопійовано", copyFail: "Скопіюйте адресу з рядка браузера",
+    tryCmd: "Відкрити командний рядок  >_", toTop: "Нагору ↑",
+    footNote: "Підказка: натисніть / будь-де, щоб відкрити командний рядок. Стрілками гортаються фільми й скриншоти в переглядачі.",
+    palFoot: "↑↓ вибір · Enter запуск · Esc закрити",
+    palPh: "введіть команду: ae, tools, en, sfx…",
+    cmd: { motion: "перейти → фільми", ae: "перейти → After Effects", tools: "перейти → інструменти", sites: "перейти → сайти", auto: "перейти → автоматизація", crm: "перейти → CRM", top: "перейти → нагору",
+      build: "ae → зібрати всю композицію", run: "бот → запустити конвеєр", decrypt: "crm → спробувати розшифрувати", reel: "play → відкрити переглядач фільмів",
+      en: "lang → English", uk: "lang → Українська", sfx: "sfx → увімкнути/вимкнути звук", glitch: "fx → глітч сторінки", copy: "share → скопіювати посилання" },
+    noCmd: "такої команди немає",
+    sfxOn: "Звук увімкнено", sfxOff: "Звук вимкнено"
+  }
+};
+
+const FILMS = [
+  ["voliro", "w", "prod", "HyperFrames"], ["focus", "w", "prod", "3D"],
+  ["morrow", "v", "prod", "HyperFrames"], ["phone", "v", "prod", "3D + UI"], ["aerones", "v", "prod", "HyperFrames"], ["sunlight", "v", "prod", "60 fps"], ["evening", "v", "story", "60 fps"],
+  ["afterhours", "w", "digital", "Remotion"], ["roamline", "w", "digital", "Remotion"],
+  ["tappay", "v", "story", "60 fps"], ["energy", "v", "prod", "60 fps"], ["recycled", "v", "prod", "60 fps"], ["asset", "v", "ui3d", "60 fps"], ["treat", "v", "story", "60 fps"],
+  ["yakusha", "v", "site", "60 fps"],
+];
+const REEL = ["treat", "asset", "recycled", "energy", "tappay", "evening", "sunlight", "aerones", "phone", "morrow", "yakusha"];
+const COLORS = ["#8b929b", "#e4d84c", "#a9cbc7", "#677de0", null, "#e8920d", "#a9a9ca"];
+const SPANS = [[0, 100], [3, 95], [0, 78], [0, 100], null, [1, 98], [0, 100]];
+const KEYS = [[], [], [], [], [11, 34, 58, 83], [], []];
+const COMBOS = [
+  ["Manual Closer Uppercut", ["Tracer", "Web Swing", "Uppercut"]],
+  ["Bread & Butter", ["Tracer", "GOH Closer", "Uppercut"]],
+  ["Melee Combo", ["Tracer", "Melee", "Tracer", "Uppercut"]],
+];
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let lang = "en";
+try { lang = localStorage.getItem("reel-lang") || ((navigator.language || "").toLowerCase().startsWith("uk") ? "uk" : "en"); } catch (e) {}
+const t = k => T[lang][k];
+
+/* ---------- films ---------- */
+const vid = (id, extra = "") => `<video src="media/${id}.mp4" poster="media/${id}.jpg" muted loop playsinline preload="none" ${extra}></video>`;
+$("#track").innerHTML = (REEL.map(id => vid(id, `data-r="${id}"`)).join("")).repeat(2);
+function renderFilms() {
+  $("#films").innerHTML = FILMS.map(([id, kind, cap, tech], i) =>
+    `<figure class="${kind}" data-kind="${kind}"><button class="f" type="button" id="film-${id}" data-film="${id}" data-i="${i}">${vid(id)}<span class="play">${t("watch")} ▶</span></button>
+     <figcaption><b>${t("cap")[cap]}</b><span>${kind === "w" ? "16:9" : "9:16"} · ${tech}</span></figcaption></figure>`).join("");
+  applyFilter(); observe();
+}
+let filter = "all";
+function applyFilter() { $$("#films figure").forEach(f => f.hidden = filter !== "all" && f.dataset.kind !== filter); }
+$(".filters").addEventListener("click", e => {
+  const b = e.target.closest("[data-f]"); if (!b) return;
+  filter = b.dataset.f; $$(".filters .btn").forEach(x => x.setAttribute("aria-pressed", x === b)); applyFilter();
+});
+let io;
+function observe() {
+  if (reduce || !("IntersectionObserver" in window)) return;
+  io = io || new IntersectionObserver(es => es.forEach(e => {
+    const v = e.target;
+    if (e.isIntersecting) { v.preload = "auto"; v.play().catch(() => {}); } else v.pause();
+  }), { rootMargin: "150px" });
+  $$("video").forEach(v => { if (!v.closest(".lb")) io.observe(v); });
+}
+/* ---------- переглядач: фільми й скриншоти, гортання ---------- */
+let gal = [], gi = 0, lastFocus = null;
+const filmItems = () => FILMS.filter(f => filter === "all" || f[1] === filter).map(f => ({ v: f[0], cap: `${t("cap")[f[2]]} · ${f[1] === "w" ? "16:9" : "9:16"} · ${f[3]}` }));
+const shotItems = () => $$(".shot").map(s => { const img = [...s.querySelectorAll("img")].find(i => !i.classList.contains("off")); return { i: img.getAttribute("src"), cap: s.dataset.capk ? t(s.dataset.capk) : (img.alt || "") }; });
+function showLb() {
+  const it = gal[gi], v = $("#lb-v"), im = $("#lb-i");
+  if (it.v) { im.hidden = true; v.hidden = false; v.poster = `media/${it.v}.jpg`; v.src = `media/${it.v}.mp4`; v.play().catch(() => {}); }
+  else { v.pause(); v.hidden = true; im.hidden = false; im.src = it.i; im.alt = it.cap; }
+  $("#lb-c").textContent = `${String(gi + 1).padStart(2, "0")}/${String(gal.length).padStart(2, "0")} · ${it.cap}`;
+  const many = gal.length > 1; $("#lb-prev").hidden = $("#lb-next").hidden = !many;
+}
+function openLb(items, idx) { gal = items; gi = Math.max(0, idx); lastFocus = document.activeElement; $("#lb").hidden = false; document.body.style.overflow = "hidden"; showLb(); $("#lb-x").focus(); sfx("open"); }
+const stepLb = d => { gi = (gi + d + gal.length) % gal.length; showLb(); sfx("tick"); };
+const closeLb = () => { $("#lb").hidden = true; $("#lb-v").pause(); document.body.style.overflow = ""; lastFocus && lastFocus.focus && lastFocus.focus(); };
+$("#films").addEventListener("click", e => {
+  const b = e.target.closest("[data-film]"); if (!b) return;
+  const items = filmItems(); openLb(items, items.findIndex(x => x.v === b.dataset.film));
+});
+document.addEventListener("click", e => {
+  const s = e.target.closest(".shot"); if (!s || s.closest(".lb")) return;
+  const all = $$(".shot"); openLb(shotItems(), all.indexOf(s));
+});
+$("#lb-x").addEventListener("click", closeLb);
+$("#lb-prev").addEventListener("click", () => stepLb(-1));
+$("#lb-next").addEventListener("click", () => stepLb(1));
+$("#lb").addEventListener("click", e => { if (e.target.id === "lb" || e.target.classList.contains("lb-fig")) closeLb(); });
+addEventListener("keydown", e => {
+  if ($("#lb").hidden) return;
+  if (e.key === "Escape") closeLb(); else if (e.key === "ArrowRight") stepLb(1); else if (e.key === "ArrowLeft") stepLb(-1);
+});
+(() => { // свайп у переглядачі
+  let sx = null;
+  $("#lb").addEventListener("touchstart", e => sx = e.touches[0].clientX, { passive: true });
+  $("#lb").addEventListener("touchend", e => { if (sx == null) return; const d = e.changedTouches[0].clientX - sx; if (Math.abs(d) > 50) stepLb(d < 0 ? 1 : -1); sx = null; });
+})();
+
+/* ---------- draggable reel ---------- */
+(() => {
+  const reel = $("#reel"), track = $("#track");
+  let x = 0, v = reduce ? 0 : -0.5, drag = null, last = 0, hover = false;
+  function half() { return track.scrollWidth / 2; }
+  function frame() {
+    if (!drag) { x += hover ? 0 : v; if (!reduce) v += (-0.5 - v) * 0.03; }
+    const h = half(); if (h > 0) { if (x <= -h) x += h; if (x > 0) x -= h; }
+    track.style.transform = `translate3d(${x}px,0,0)`;
+    requestAnimationFrame(frame);
+  }
+  reel.addEventListener("pointerdown", e => { drag = { sx: e.clientX, x0: x }; last = e.clientX; reel.classList.add("drag"); reel.setPointerCapture(e.pointerId); });
+  reel.addEventListener("pointermove", e => {
+    if (drag) { x = drag.x0 + (e.clientX - drag.sx); v = (e.clientX - last) * 0.9; last = e.clientX; }
+    const el = document.elementsFromPoint(e.clientX, e.clientY).find(n => n.tagName === "VIDEO" && n.hasAttribute("data-r"));
+    $$("#track video.hot").forEach(n => n !== el && n.classList.remove("hot")); if (el) el.classList.add("hot");
+  });
+  const end = e => {
+    const moved = drag ? Math.abs(e.clientX - drag.sx) : 99;
+    drag = null; reel.classList.remove("drag");
+    if (e.type === "pointerup" && moved < 6) { // клік без перетягування — відкрити фільм
+      const el = document.elementsFromPoint(e.clientX, e.clientY).find(n => n.tagName === "VIDEO" && n.dataset.r);
+      if (el) { const items = FILMS.map(f => ({ v: f[0], cap: `${t("cap")[f[2]]} · ${f[1] === "w" ? "16:9" : "9:16"} · ${f[3]}` })); openLb(items, items.findIndex(x => x.v === el.dataset.r)); }
+    }
+  };
+  reel.addEventListener("pointerup", end); reel.addEventListener("pointercancel", end);
+  reel.addEventListener("pointerenter", () => hover = true);
+  reel.addEventListener("pointerleave", () => { hover = false; $$("#track video.hot").forEach(n => n.classList.remove("hot")); });
+  requestAnimationFrame(frame);
+})();
+
+/* ---------- After Effects comp ---------- */
+const built = new Set();
+let ph = 8, playing = !reduce;
+function renderCmds() {
+  $("#cmds").innerHTML = t("cmds").map((c, i) => `<button class="btn${built.has(i) ? " on" : ""}" type="button" id="cmd-${i}" data-c="${i}" ${built.has(i) ? "disabled" : ""}>${c}</button>`).join("") +
+    `<button class="btn" type="button" id="cmd-all" data-c="all">${t("build")}</button><button class="btn" type="button" id="cmd-reset" data-c="reset">${t("reset")}</button>`;
+}
+function renderLayers() {
+  const order = [...built].sort((a, b) => b - a);
+  $("#layerList").innerHTML = order.length ? order.map((i, n) => {
+    const lane = KEYS[i].length ? KEYS[i].map(k => `<i class="k" style="left:${k}%"></i>`).join("")
+      : `<i style="left:${SPANS[i][0]}%;width:${SPANS[i][1]}%;background:${COLORS[i]}"></i>`;
+    return `<div class="layer"><span class="n">${n + 1}</span><span class="nm">${t("layers")[i]}</span><span class="lane">${lane}</span></div>`;
+  }).join("") : `<div class="empty">${t("termIdle")}</div>`;
+}
+const term = [];
+function log(s) { term.push(s); if (term.length > 4) term.shift(); $("#term").innerHTML = term.map(l => `<div><i class="p">›</i> ${l}</div>`).join(""); }
+function idleTerm() { term.length = 0; $("#term").innerHTML = `<div class="dim">${t("termIdle")}</div>`; }
+function add(i) { if (built.has(i)) return; built.add(i); log(t("logs")[i]); renderCmds(); renderLayers(); }
+$("#cmds").addEventListener("click", async e => {
+  const b = e.target.closest("[data-c]"); if (!b) return;
+  const c = b.dataset.c;
+  if (c === "reset") { built.clear(); renderCmds(); renderLayers(); idleTerm(); return; }
+  if (c === "all") { for (let i = 0; i < 7; i++) { if (!built.has(i)) { add(i); await new Promise(r => setTimeout(r, reduce ? 0 : 260)); } } return; }
+  add(+c);
+});
+function rulerMarks() { $("#ruler").innerHTML = ["0s", "5s", "10s", "15s"].map((s, i) => `<span style="left:${i * 33.3}%">${s}</span>`).join(""); }
+function placePh() {
+  const L = $("#layers"), R = $("#ruler");
+  const left = R.offsetLeft + (ph / 100) * R.offsetWidth;
+  $("#ph").style.left = left + "px";
+  const secs = (ph / 100) * 15, f = Math.floor((secs % 1) * 30);
+  $("#tc").textContent = `00:00:${String(Math.floor(secs)).padStart(2, "0")}:${String(f).padStart(2, "0")}`;
+  const w = t("words"); $("#word").textContent = built.has(1) ? w[Math.min(w.length - 1, Math.floor(ph / 100 * w.length))] : "—";
+}
+(() => {
+  const R = $("#ruler"), L = $("#layers");
+  let dragging = false;
+  const set = e => { const r = R.getBoundingClientRect(); ph = Math.max(0, Math.min(100, (e.clientX - r.left) / r.width * 100)); placePh(); };
+  L.addEventListener("pointerdown", e => { const r = R.getBoundingClientRect(); if (e.clientX < r.left) return; dragging = true; playing = false; L.setPointerCapture(e.pointerId); set(e); });
+  L.addEventListener("pointermove", e => dragging && set(e));
+  L.addEventListener("pointerup", () => { dragging = false; playing = !reduce; });
+  let prev = performance.now();
+  (function tick(now) { const dt = now - prev; prev = now; if (playing) { ph += dt / 150; if (ph > 100) ph = 0; placePh(); } requestAnimationFrame(tick); })(prev);
+})();
+
+/* ---------- tools ---------- */
+$$(".tabs").forEach(g => g.addEventListener("click", e => {
+  const b = e.target.closest("[data-shot]"); if (!b) return;
+  g.querySelectorAll(".btn").forEach(x => x.setAttribute("aria-pressed", x === b));
+  const imgs = $(`#shot-${b.dataset.shot}`).querySelectorAll("img");
+  imgs[1].classList.toggle("off", b.dataset.i === "0");
+}));
+$$("[data-tilt]").forEach(el => {
+  if (reduce) return;
+  el.addEventListener("pointermove", e => { const r = el.getBoundingClientRect(); el.style.setProperty("--ry", ((e.clientX - r.left) / r.width - .5) * 6 + "deg"); el.style.setProperty("--rx", -((e.clientY - r.top) / r.height - .5) * 6 + "deg"); });
+  el.addEventListener("pointerleave", () => { el.style.setProperty("--rx", "0deg"); el.style.setProperty("--ry", "0deg"); });
+});
+let mode = 1;
+function renderModes() {
+  $("#modes").innerHTML = t("modes").map(([n, d], i) => `<button class="mode" type="button" id="mode-${i}" data-m="${i}" aria-pressed="${i === mode}"><b>${n}</b><span>${d}</span></button>`).join("");
+}
+$("#modes").addEventListener("click", e => { const b = e.target.closest("[data-m]"); if (!b) return; mode = +b.dataset.m; renderModes(); });
+
+/* layout fix: EN QWERTY <-> UK ЙЦУКЕН */
+const EN = "qwertyuiop[]asdfghjkl;'zxcvbnm,./`QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>?~";
+const UK = "йцукенгшщзхїфівапролджєячсмитьбю.'ЙЦУКЕНГШЩЗХЇФІВАПРОЛДЖЄЯЧСМИТЬБЮ,₴";
+function swap(s) {
+  const lat = (s.match(/[a-z]/gi) || []).length, cyr = (s.match(/[а-яіїєґ]/gi) || []).length;
+  const [from, to] = lat >= cyr ? [EN, UK] : [UK, EN];
+  return [...s].map(ch => { const i = from.indexOf(ch); return i < 0 ? ch : to[i]; }).join("");
+}
+function fix() {
+  const inp = $("#lf-input"), k = $("#pause");
+  const a = inp.selectionStart, b = inp.selectionEnd, v = inp.value;
+  if (a !== b && a != null) inp.value = v.slice(0, a) + swap(v.slice(a, b)) + v.slice(b);
+  else inp.value = swap(v);
+  k.classList.add("down"); setTimeout(() => k.classList.remove("down"), 140);
+}
+$("#pause").addEventListener("click", fix);
+$("#pause").addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fix(); } });
+$("#lf-input").addEventListener("keydown", e => { if (e.key === "Pause" || (e.key === "Enter")) { e.preventDefault(); fix(); } });
+
+/* ---------- Spider trainer ---------- */
+let combo = 0, step = 0;
+function renderTrainer() {
+  const [name, seq] = COMBOS[combo];
+  $("#tr-name").textContent = name;
+  $("#slots").innerHTML = seq.map((s, i) => `<span class="slot${i < step ? " full" : ""}">${i < step ? s : ""}</span>`).join("");
+  const pool = [...new Set(["Tracer", "Web Swing", "Uppercut", "GOH Closer", "Melee", "Web Dash"])];
+  if (!$("#pool").dataset.order || $("#pool").dataset.combo != combo) {
+    $("#pool").dataset.order = pool.sort(() => Math.random() - .5).join("|"); $("#pool").dataset.combo = combo;
+  }
+  $("#pool").innerHTML = $("#pool").dataset.order.split("|").map((p, i) => `<button class="chip" type="button" id="chip-${i}" data-p="${p}">${p}</button>`).join("");
+  if (step >= seq.length) {
+    $("#verdict").className = "verdict ok";
+    $("#verdict").innerHTML = `${t("trOk")} <button class="btn" type="button" id="tr-next" style="margin-left:8px">${t("trAgain")}</button>`;
+  }
+}
+$("#pool").addEventListener("click", e => {
+  const b = e.target.closest("[data-p]"); if (!b) return;
+  const seq = COMBOS[combo][1]; if (step >= seq.length) return;
+  if (b.dataset.p === seq[step]) { step++; $("#verdict").className = "verdict"; $("#verdict").textContent = ""; renderTrainer(); }
+  else { b.classList.remove("bad"); void b.offsetWidth; b.classList.add("bad"); $("#verdict").className = "verdict"; $("#verdict").textContent = t("trBad"); }
+});
+$("#verdict").addEventListener("click", e => { if (e.target.id === "tr-next") { combo = (combo + 1) % COMBOS.length; step = 0; $("#verdict").textContent = ""; renderTrainer(); } });
+
+/* ---------- pipeline ---------- */
+function renderPipe() { $("#pipe").innerHTML = t("n").map(([b, s], i) => `<div class="node" id="node-${i}"><b>${b}</b><span>${s}</span></div>`).join(""); }
+let runningPipe = false;
+$("#run").addEventListener("click", async () => {
+  if (runningPipe) return; runningPipe = true;
+  $("#run").textContent = t("running"); $("#post").innerHTML = "";
+  const nodes = $$(".node"); nodes.forEach(n => n.classList.remove("on", "done"));
+  for (const n of nodes) { n.classList.add("on"); await new Promise(r => setTimeout(r, reduce ? 0 : 520)); n.classList.remove("on"); n.classList.add("done"); }
+  $("#post").innerHTML = t("posted"); $("#run").textContent = t("run"); runningPipe = false;
+});
+
+/* NDA cards: спроба «розшифрувати» → доступ заборонено */
+const GLYPHS = "▓▒░█<>/\\_#$%&@01ΣΞ";
+const noise = n => Array.from({ length: n }, () => GLYPHS[Math.random() * GLYPHS.length | 0]).join("");
+$$(".nda").forEach(card => card.addEventListener("click", async () => {
+  if (card.dataset.busy) return; card.dataset.busy = 1;
+  const lines = [...card.querySelectorAll(".redact i")], final = t("crmDeny");
+  lines.forEach(l => l.classList.add("txt"));
+  const t0 = performance.now(), dur = reduce ? 0 : 900;
+  await new Promise(res => (function f(now) {
+    const k = Math.min(1, (now - t0) / (dur || 1));
+    lines.forEach((l, i) => { const s = final[i]; const keep = Math.floor(s.length * Math.max(0, k * 1.4 - i * .1)); l.textContent = s.slice(0, keep) + noise(Math.max(0, 34 - keep)); });
+    if (k < 1) requestAnimationFrame(f); else res();
+  })(t0));
+  lines.forEach((l, i) => { l.textContent = final[i]; l.classList.toggle("deny", i === 0); });
+  card.classList.remove("hit"); void card.offsetWidth; card.classList.add("hit");
+  await new Promise(r => setTimeout(r, 3200));
+  lines.forEach(l => { l.textContent = ""; l.classList.remove("txt", "deny"); });
+  card.classList.remove("hit"); delete card.dataset.busy;
+}));
+
+/* ---------- i18n ---------- */
+function applyLang() {
+  document.documentElement.lang = lang;
+  $$("[data-t]").forEach(el => { const v = T[lang][el.dataset.t]; if (typeof v === "string") el.innerHTML = v; });
+  $$(".lang button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === lang));
+  renderFilms(); renderCmds(); renderLayers(); renderModes(); renderPipe(); renderTrainer();
+  if (!term.length) idleTerm(); else { term.length = 0; [...built].forEach(i => log(t("logs")[i])); }
+  rulerMarks(); placePh();
+  const em = $(".hero h1 em"); if (em) { em.classList.add("glitch"); em.dataset.text = em.textContent; }
+  $$("h2").forEach(h => { h.dataset.done = ""; if (h.getBoundingClientRect().top < innerHeight) decode(h); });
+}
+/* «розшифровка» заголовків секцій при появі */
+function decode(h) {
+  if (reduce || h.dataset.done) return; h.dataset.done = 1;
+  const nodes = []; const w = document.createTreeWalker(h, NodeFilter.SHOW_TEXT); while (w.nextNode()) nodes.push([w.currentNode, w.currentNode.textContent]);
+  const t0 = performance.now(), dur = 700;
+  (function f(now) {
+    const k = Math.min(1, (now - t0) / dur);
+    nodes.forEach(([n, s]) => { const keep = Math.floor(s.length * k); n.textContent = s.slice(0, keep) + [...s.slice(keep)].map(c => c === " " ? " " : GLYPHS[Math.random() * GLYPHS.length | 0]).join(""); });
+    if (k < 1) requestAnimationFrame(f); else nodes.forEach(([n, s]) => n.textContent = s);
+  })(t0);
+}
+if ("IntersectionObserver" in window) {
+  const ho = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && decode(e.target)), { threshold: .6 });
+  $$("h2").forEach(h => ho.observe(h));
+}
+function setLang(l) {
+  if (l === lang) return;
+  lang = l; try { localStorage.setItem("reel-lang", lang); } catch (err) {}
+  applyLang(); if (typeof glitchPage === "function") glitchPage();
+}
+$(".lang").addEventListener("click", e => { const b = e.target.closest("[data-lang]"); if (b) setLang(b.dataset.lang); });
+applyLang();
+// стартовий стан: агент уже зібрав частину композиції
+[0, 1, 2].forEach(i => { built.add(i); log(t("logs")[i]); });
+renderCmds(); renderLayers(); observe();
+addEventListener("resize", placePh);
+
+/* ---------- тост ---------- */
+let toastT;
+function toast(msg) { const el = $("#toast"); el.textContent = msg; el.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => el.hidden = true, 2200); }
+
+/* ---------- копіювання посилання ---------- */
+async function copyLink() {
+  const url = location.href.split("#")[0];
+  try { await navigator.clipboard.writeText(url); toast(t("copied")); sfx("ok"); }
+  catch (e) { toast(t("copyFail")); }
+}
+$("#copy-link").addEventListener("click", copyLink);
+
+/* ---------- глітч усієї сторінки ---------- */
+function glitchPage() {
+  if (reduce) return;
+  document.body.classList.remove("glitching"); void document.body.offsetWidth; document.body.classList.add("glitching");
+  setTimeout(() => document.body.classList.remove("glitching"), 520);
+  $$("h2").forEach(h => { h.dataset.done = ""; if (h.getBoundingClientRect().top < innerHeight && h.getBoundingClientRect().bottom > 0) decode(h); });
+  sfx("glitch");
+}
+
+/* ---------- звук інтерфейсу (Web Audio, лише після кліку) ---------- */
+let sfxOn = false, actx = null;
+try { sfxOn = localStorage.getItem("reel-sfx") === "1"; } catch (e) {}
+function sfx(kind) {
+  if (!sfxOn) return;
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    const o = actx.createOscillator(), g = actx.createGain(), now = actx.currentTime;
+    const p = { click: [880, .04, "square"], tick: [1320, .03, "square"], open: [440, .12, "sawtooth"], ok: [660, .18, "triangle"], glitch: [120, .25, "sawtooth"] }[kind] || [880, .04, "square"];
+    o.type = p[2]; o.frequency.setValueAtTime(p[0], now);
+    if (kind === "open" || kind === "ok") o.frequency.exponentialRampToValueAtTime(p[0] * 2, now + p[1]);
+    if (kind === "glitch") o.frequency.exponentialRampToValueAtTime(40, now + p[1]);
+    g.gain.setValueAtTime(.05, now); g.gain.exponentialRampToValueAtTime(.0001, now + p[1]);
+    o.connect(g).connect(actx.destination); o.start(now); o.stop(now + p[1] + .02);
+  } catch (e) {}
+}
+function setSfx(on) { sfxOn = on; $("#sfx-t").setAttribute("aria-pressed", on); try { localStorage.setItem("reel-sfx", on ? "1" : "0"); } catch (e) {} toast(t(on ? "sfxOn" : "sfxOff")); if (on) sfx("ok"); }
+$("#sfx-t").setAttribute("aria-pressed", sfxOn);
+$("#sfx-t").addEventListener("click", () => setSfx(!sfxOn));
+document.addEventListener("click", e => { if (e.target.closest("button, a, .chip, kbd") && !e.target.closest("#sfx-t")) sfx("click"); }, true);
+
+/* ---------- командний рядок ---------- */
+const CMDS = ["ae", "tools", "motion", "sites", "auto", "crm", "build", "run", "decrypt", "reel", "en", "uk", "sfx", "glitch", "copy", "top"];
+let palSel = 0, palList = [];
+function go(id) { closePal(); const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: reduce ? "auto" : "smooth" }); }
+function runCmd(c) {
+  closePal();
+  if (["motion", "ae", "tools", "sites", "auto", "crm", "top"].includes(c)) return go(c);
+  if (c === "build") { go("ae"); setTimeout(() => $("#cmd-all") && $("#cmd-all").click(), 500); }
+  if (c === "run") { go("auto"); setTimeout(() => $("#run").click(), 500); }
+  if (c === "decrypt") { go("crm"); setTimeout(() => $("#nda-1").click(), 500); }
+  if (c === "reel") { const items = FILMS.map(f => ({ v: f[0], cap: `${t("cap")[f[2]]} · ${f[1] === "w" ? "16:9" : "9:16"} · ${f[3]}` })); openLb(items, 0); }
+  if (c === "en" || c === "uk") setLang(c);
+  if (c === "sfx") setSfx(!sfxOn);
+  if (c === "glitch") glitchPage();
+  if (c === "copy") copyLink();
+}
+function renderPal() {
+  const q = $("#pal-q").value.trim().toLowerCase(), cm = t("cmd");
+  palList = CMDS.filter(c => !q || c.includes(q) || cm[c].toLowerCase().includes(q));
+  if (palSel >= palList.length) palSel = 0;
+  $("#pal-list").innerHTML = palList.length ? palList.map((c, i) => `<li role="option" id="pal-${c}" data-c="${c}" aria-selected="${i === palSel}"><b>${c}</b><span>${cm[c]}</span></li>`).join("") : `<li class="none">${t("noCmd")}</li>`;
+}
+function openPal() { $("#pal").hidden = false; $("#pal-q").value = ""; $("#pal-q").placeholder = t("palPh"); palSel = 0; renderPal(); $("#pal-q").focus(); sfx("open"); }
+function closePal() { $("#pal").hidden = true; }
+$("#open-pal").addEventListener("click", openPal);
+$("#foot-pal").addEventListener("click", openPal);
+$("#pal-q").addEventListener("input", () => { palSel = 0; renderPal(); });
+$("#pal-q").addEventListener("keydown", e => {
+  if (e.key === "ArrowDown") { e.preventDefault(); palSel = (palSel + 1) % Math.max(1, palList.length); renderPal(); sfx("tick"); }
+  else if (e.key === "ArrowUp") { e.preventDefault(); palSel = (palSel - 1 + palList.length) % Math.max(1, palList.length); renderPal(); sfx("tick"); }
+  else if (e.key === "Enter") { e.preventDefault(); if (palList[palSel]) runCmd(palList[palSel]); }
+  else if (e.key === "Escape") closePal();
+});
+$("#pal-list").addEventListener("click", e => { const li = e.target.closest("[data-c]"); if (li) runCmd(li.dataset.c); });
+$("#pal").addEventListener("click", e => { if (e.target.id === "pal") closePal(); });
+addEventListener("keydown", e => {
+  const typing = /INPUT|TEXTAREA/.test(document.activeElement.tagName);
+  if ((e.key === "/" && !typing) || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k")) { e.preventDefault(); $("#pal").hidden ? openPal() : closePal(); }
+});
+
+/* ---------- HUD: курсор, координати, секція, час ---------- */
+(() => {
+  const cur = $("#cur"), xy = $("#hud-xy"), sec = $("#hud-sec"), clk = $("#hud-t");
+  let tx = 0, ty = 0, cx = 0, cy = 0;
+  addEventListener("pointermove", e => {
+    if (e.pointerType !== "mouse") return;
+    tx = e.clientX; ty = e.clientY; cur.classList.add("on");
+    xy.textContent = `X ${String(Math.round(tx)).padStart(4, "0")} · Y ${String(Math.round(ty + scrollY)).padStart(5, "0")}`;
+    cur.classList.toggle("hot", !!e.target.closest("button, a, input, video, [data-tilt], .reel"));
+  });
+  document.addEventListener("pointerleave", () => cur.classList.remove("on"));
+  (function loop() { cx += (tx - cx) * (reduce ? 1 : .25); cy += (ty - cy) * (reduce ? 1 : .25); cur.style.transform = `translate(${cx}px, ${cy}px)`; requestAnimationFrame(loop); })();
+  const ids = ["motion", "ae", "tools", "sites", "auto", "crm"];
+  addEventListener("scroll", () => {
+    let n = 0; ids.forEach((id, i) => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < innerHeight * .5) n = i + 1; });
+    sec.innerHTML = `<b>SEC</b> ${String(n).padStart(2, "0")}/06`;
+  }, { passive: true });
+  const tick = () => { clk.textContent = new Date().toLocaleTimeString("en-GB"); };
+  tick(); setInterval(tick, 1000);
+})();
+</script>
+
+</body>
+</html>
