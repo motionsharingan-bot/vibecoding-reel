@@ -428,6 +428,49 @@ body.glitching .g, body.glitching .reel, body.glitching .stage { animation: page
   100% { transform: none; }
 }
 
+/* ===== n8n-граф ===== */
+.wf { background: var(--panel); box-shadow: 0 0 0 1px var(--edge), 0 0 80px -30px #00e5ff66; clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px); }
+.wf-top, .wf-bottom { display: flex; justify-content: space-between; align-items: center; gap: 10px 16px; flex-wrap: wrap; padding: 12px 16px; }
+.wf-top { border-bottom: 1px solid var(--edge); }
+.wf-bottom { border-top: 1px solid var(--edge); align-items: flex-start; }
+.wf-title { color: var(--neon); min-width: 0; }
+.wf-ctl { display: flex; gap: 6px; }
+.wf-stage { position: relative; height: clamp(360px, 62vh, 640px); cursor: grab; touch-action: pan-y; overflow: hidden;
+  background: radial-gradient(#1a2233 1px, transparent 1.2px) 0 0 / 22px 22px, #070a10; }
+.wf-stage.drag { cursor: grabbing; }
+#wf-svg { width: 100%; height: 100%; display: block; user-select: none; }
+.we { fill: none; stroke: #2a3550; stroke-width: 4; transition: stroke .2s, opacity .2s; }
+.we.ai { stroke-dasharray: 10 10; stroke: #26405a; }
+.wn rect, .wn circle { fill: #0c111b; stroke: var(--c); stroke-width: 3; transition: fill .2s, filter .2s; }
+.wn .ic { fill: var(--c); font: 700 26px var(--f-mono); pointer-events: none; }
+.wn .lb { fill: #7d889c; font: 400 22px var(--f-mono); pointer-events: none; }
+.wn { cursor: pointer; transition: opacity .2s; }
+#wf-svg.focus .wn, #wf-svg.focus .we { opacity: .18; }
+#wf-svg.focus .wn.hl, #wf-svg.focus .we.hl { opacity: 1; }
+.we.hl { stroke: var(--neon); }
+.wn.hl rect, .wn.hl circle, .wn:hover rect, .wn:hover circle { fill: color-mix(in srgb, var(--c) 22%, #0c111b); filter: url(#wfglow); }
+.wn.hl .lb { fill: var(--ink); }
+.we.lit { stroke: var(--magenta); filter: drop-shadow(0 0 6px #ff2bd6); }
+.wn.on rect, .wn.on circle { fill: color-mix(in srgb, var(--c) 35%, #0c111b); filter: url(#wfglow); }
+.wn.on .lb { fill: var(--ink); }
+.pulse { fill: var(--volt); filter: drop-shadow(0 0 8px #f3ff3a); }
+.wf-tip { position: absolute; z-index: 3; pointer-events: none; background: #05060aee; box-shadow: 0 0 0 1px var(--neon); padding: 8px 10px; display: grid; gap: 2px; max-width: 220px; font: 400 11px/1.35 var(--f-mono); color: var(--mute); }
+.wf-tip b { color: var(--ink); font: 600 13px/1.3 var(--f-display); }
+.wf-hint { position: absolute; left: 12px; bottom: 10px; color: #4e5a70; pointer-events: none; font-size: 11px; }
+.wf-legend { display: flex; flex-wrap: wrap; gap: 6px; }
+.lg { display: inline-flex; align-items: center; gap: 7px; background: transparent; border: 1px solid var(--edge); color: var(--mute); font: 400 12px/1 var(--f-mono); padding: 7px 9px; cursor: pointer; }
+.lg i { width: 9px; height: 9px; background: var(--c); box-shadow: 0 0 8px var(--c); }
+.lg em { font-style: normal; color: var(--c); }
+.lg:hover, .lg[aria-pressed="true"] { border-color: var(--c); color: var(--ink); }
+.wf-log { min-height: 5.6em; min-width: 0; flex: 1 1 260px; text-align: right; color: var(--neon); font-size: 11px; line-height: 1.4; }
+.wf-log div:not(:first-child) { opacity: .45; }
+.sat-label { margin-top: 48px; }
+.sats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.sat { background: var(--panel); box-shadow: 0 0 0 1px var(--edge); padding: 22px; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
+.sat h3 { margin: 0 0 8px; font: 800 24px/1.05 var(--f-display); letter-spacing: -.02em; }
+.sat p { margin: 0 0 12px; color: var(--mute); font-size: 15px; }
+@media (max-width: 760px) { .sats { grid-template-columns: minmax(0, 1fr); } .wf-log { text-align: left; } .wf-hint { display: none; } .wf-stage { height: 420px; } }
+
 /* ===== адаптив ===== */
 @media (max-width: 760px) {
   .bar { gap: 12px; }
@@ -663,12 +706,35 @@ body.glitching .g, body.glitching .reel, body.glitching .stage { animation: page
         <div><span class="idx">05</span><h2 data-t="autoH"></h2></div>
         <p data-t="autoP"></p>
       </div>
-      <div class="pipe" id="pipe"></div>
+      <div class="wf" id="wf">
+        <div class="wf-top">
+          <span class="mono wf-title" data-t="wfTitle"></span>
+          <div class="wf-ctl">
+            <button class="ibtn" type="button" id="wf-reveal" data-t="wfReveal"></button>
+            <button class="ibtn" type="button" id="wf-in" aria-label="Zoom in">+</button>
+            <button class="ibtn" type="button" id="wf-out" aria-label="Zoom out">−</button>
+          </div>
+        </div>
+        <div class="wf-stage" id="wf-stage">
+          <svg id="wf-svg" role="img" aria-label="n8n workflow graph"></svg>
+          <div class="wf-tip" id="wf-tip" hidden></div>
+          <span class="wf-hint mono" data-t="wfHint"></span>
+        </div>
+        <div class="wf-bottom">
+          <div class="wf-legend" id="wf-legend"></div>
+          <div class="wf-log mono" id="wf-log" aria-live="polite"></div>
+        </div>
+      </div>
       <div class="pipe-out">
         <span class="post" id="post" aria-live="polite"></span>
         <button class="btn solid" type="button" id="run" data-t="run"></button>
       </div>
-      <p class="note">n8n · Groq · Gemini · Telegram API</p>
+      <p class="idx sat-label" data-t="satLabel"></p>
+      <div class="sats">
+        <article class="sat"><h3 data-t="sat1H"></h3><p data-t="sat1P"></p><span class="mono">n8n · fxtwitter · LLM · Telegram</span></article>
+        <article class="sat"><h3 data-t="sat2H"></h3><p data-t="sat2P"></p><span class="mono">n8n · Liquipedia · Telegram</span></article>
+      </div>
+      <p class="note">n8n · Groq · Gemini · Telegram API · Telegraph</p>
     </section>
 
     <section class="s" id="crm">
@@ -772,7 +838,14 @@ const T = {
     smmH: "Portfolio for an SMM specialist",
     smmP: "A site plus an edit page: the client changes texts herself, and a script moves them into the code. No developer needed.",
     autoH: "Automation",
-    autoP: "A Ukrainian-language Telegram channel about Marvel Rivals that runs itself, from sources to a finished post with a branded image.",
+    autoP: "A Ukrainian-language Telegram channel about Marvel Rivals that runs itself: sources, filtering, AI rewrite, a duplicate judge, translation, long reads on Telegraph and branded images. Below is the real workflow from n8n.",
+    wfTitle: "workflow // Marvel Rivals News · live in n8n", wfReveal: "Show the whole workflow ⤢", wfFocus: "Back to the trigger ⤡",
+    wfHint: "drag to pan · hover a node · Ctrl + wheel to zoom",
+    cats: { trig: "Triggers", src: "Sources", logic: "Logic", code: "Code", ai: "AI", data: "Data", out: "Output" },
+    wfStart: "schedule fired · reading feeds", wfDone: "done · post is in the channel",
+    satLabel: "Satellite workflows",
+    sat1H: "X feed", sat1P: "Every 15 minutes it reads @MarvelRivals and leak accounts, stitches threads together and the model writes posts. Videos and albums come to me for review.",
+    sat2H: "Esports results", sat2P: "Posts the winners of tournament finals from Liquipedia tables. Only finals and playoffs, by the client's choice.",
     n: [["Sources", "news sites and feeds"], ["Filter", "normalise and drop the noise"], ["AI", "rewrites the story in Ukrainian"], ["Layout", "image with a badge and watermark"], ["Post", "on schedule, no hands"]],
     run: "Run the pipeline ▶", running: "Running…", posted: "<b>Posted.</b> A fresh story is in the channel.",
     crmH: "Systems<br>for teams",
@@ -848,7 +921,14 @@ const T = {
     smmH: "Портфоліо SMM-фахівчині",
     smmP: "Сайт плюс сторінка правок: клієнтка сама змінює тексти, а скрипт переносить їх у код. Без розробника.",
     autoH: "Автоматизація",
-    autoP: "Україномовний Telegram-канал про Marvel Rivals, що веде себе сам: від джерел до готового поста з брендованою картинкою.",
+    autoP: "Україномовний Telegram-канал про Marvel Rivals, що веде себе сам: джерела, відбір, AI-рерайт, суддя повторів, переклад, лонгріди в Telegraph і брендовані картинки. Нижче — справжній воркфлоу з n8n.",
+    wfTitle: "workflow // Marvel Rivals News · працює в n8n", wfReveal: "Показати весь воркфлоу ⤢", wfFocus: "Назад до тригера ⤡",
+    wfHint: "тягніть, щоб рухати · наведіть на ноду · Ctrl + коліщатко — масштаб",
+    cats: { trig: "Тригери", src: "Джерела", logic: "Логіка", code: "Код", ai: "AI", data: "Дані", out: "Вихід" },
+    wfStart: "спрацював розклад · читаю стрічки", wfDone: "готово · пост у каналі",
+    satLabel: "Супутні воркфлоу",
+    sat1H: "X-стрічка", sat1P: "Кожні 15 хвилин читає @MarvelRivals і акаунти зі зливами, склеює серії твітів, а модель пише пости. Відео й альбоми приходять мені на перевірку.",
+    sat2H: "Результати кіберспорту", sat2P: "Публікує переможців фіналів турнірів за таблицями Liquipedia. Лише фінали й плей-оф — так вирішив замовник.",
     n: [["Джерела", "новинні сайти й стрічки"], ["Відбір", "нормалізація й відсів шуму"], ["AI", "переписує новину українською"], ["Верстка", "картинка з плашкою й водяним знаком"], ["Пост", "за розкладом, без рук"]],
     run: "Запустити конвеєр ▶", running: "Працює…", posted: "<b>Опубліковано.</b> Свіжа новина вже в каналі.",
     crmH: "Системи<br>для команд",
@@ -1103,14 +1183,125 @@ $("#pool").addEventListener("click", e => {
 $("#verdict").addEventListener("click", e => { if (e.target.id === "tr-next") { combo = (combo + 1) % COMBOS.length; step = 0; $("#verdict").textContent = ""; renderTrainer(); } });
 
 /* ---------- pipeline ---------- */
-function renderPipe() { $("#pipe").innerHTML = t("n").map(([b, s], i) => `<div class="node" id="node-${i}"><b>${b}</b><span>${s}</span></div>`).join(""); }
+/* справжній воркфлоу з n8n: назви, типи, координати й зв'язки (вимкнені ноди прибрано) */
+const WF = {"n":[["Manual trigger","trig","manualTrigger",0,1744],["RSS Read","src","rssFeedRead",592,1232],["Filter","logic","filter",1728,1632],["Limit","logic","limit",2176,1632],["RSS Read1","src","rssFeedRead",592,1360],["RSS Read2","src","rssFeedRead",592,1488],["Merge","logic","merge",1152,1536],["Code in JavaScript","code","code",1504,1632],["Basic LLM Chain","ai","chainLlm",2624,1632],["Structured Output Parser","ai","outputParserStructured",2768,2160],["Code in JavaScript1","code","code",3600,1632],["Schedule Trigger","trig","scheduleTrigger",0,1616],["RSS Read7","src","rssFeedRead",704,1744],["Wait","logic","wait",480,1744],["Telegram UA","out","telegram",4256,1632],["Sort","logic","sort",2400,1632],["Execute Command1","data","executeCommand",3824,1632],["Read/Write Files from Disk","data","readWriteFile",4064,1632],["Google Gemini Chat Model","ai","lmChatGoogleGemini",2624,2160],["Groq Chat Model","ai","lmChatGroq",2032,2192],["RSS Read8","src","rssFeedRead",592,1872],["If row does not exist","data","dataTable",1952,1632],["Insert row","data","dataTable",4432,1632],["RSS Read4","src","rssFeedRead",592,2000],["RSS Read5","src","rssFeedRead",592,2128],["Wait1","logic","wait",592,1744],["Longform?","logic","if",3264,1616],["Translate","ai","chainLlm",3232,2048],["Structured Output Parser1","ai","outputParserStructured",3376,2272],["Code in JavaScript2","code","code",3600,2048],["Telegraph","out","httpRequest",4064,2032],["QA?","logic","if",3824,2048],["Telegram Longform","out","telegram",4256,2032],["Insert row1","data","dataTable",4432,2032],["Звіт","code","code",1616,2400],["Telegram Звіт","out","telegram",1856,2400],["Get published","data","dataTable",1520,0],["Filter1","logic","if",3024,1632],["Модель відповіла?","logic","if",2960,1872],["Mark seen","data","dataTable",2960,2048],["Google Gemini Chat Model1","ai","lmChatGoogleGemini",3232,2272],["RSS Read6","src","rssFeedRead",592,2288],["Відбір","logic","limit",1808,2000],["Вартий поста?","ai","textClassifier",2032,2000],["Mark skipped","data","dataTable",2224,2240],["Повна стаття","code","code",2320,1984],["Канал","out","httpRequest",2080,2704],["Суддя: підготовка","code","code",2304,2704],["Суддя повторів","ai","chainLlm",2544,2704],["Gemini · суддя","ai","lmChatGoogleGemini",2480,2928],["Схема судді","ai","outputParserStructured",2656,2928],["Gemini · виправлення","ai","lmChatGoogleGemini",2800,3104],["Суддя: вердикт","code","code",2832,2704],["Не повтор?","logic","if",3056,2704],["Повідомити про повтор","out","telegram",3280,2880],["Gemini · запас класифікації","ai","lmChatGoogleGemini",2784,2160],["Gemini · запас перекладу","ai","lmChatGoogleGemini",3392,2272],["Gemini · запас судді","ai","lmChatGoogleGemini",2320,2928],["Є відео YouTube?","logic","if",3824,1456],["Telegram UA відео","out","telegram",4256,1456]],"e":[[0,1,0],[0,4,0],[0,5,0],[0,13,0],[0,20,0],[0,23,0],[0,24,0],[0,36,0],[0,41,0],[1,6,0],[2,21,0],[3,15,0],[4,6,0],[5,6,0],[6,7,0],[6,34,0],[7,2,0],[8,37,0],[9,8,1],[11,1,0],[11,4,0],[11,5,0],[11,13,0],[11,20,0],[11,23,0],[11,24,0],[11,36,0],[11,41,0],[12,6,0],[13,25,0],[15,8,0],[16,17,0],[17,14,0],[18,8,1],[19,43,1],[20,6,0],[21,42,0],[14,22,0],[23,6,0],[24,6,0],[25,12,0],[26,27,0],[26,10,0],[27,29,0],[28,27,1],[29,31,0],[31,30,0],[31,10,0],[30,32,0],[32,33,0],[34,35,0],[37,26,0],[37,38,0],[38,39,0],[40,27,1],[41,6,0],[42,43,0],[43,46,0],[43,44,0],[45,3,0],[46,47,0],[47,48,0],[48,52,0],[52,53,0],[53,45,0],[53,54,0],[53,44,0],[49,48,1],[50,48,1],[51,50,1],[55,8,1],[56,27,1],[57,48,1],[10,58,0],[58,59,0],[58,16,0],[59,22,0]],"w":4532,"h":3204};
+const CAT_COL = { trig: "#f3ff3a", src: "#ff9a3d", logic: "#8b9bff", code: "#ff2bd6", ai: "#00e5ff", data: "#3dffa8", out: "#ffffff" };
+const CAT_ICON = { trig: "⏱", src: "RSS", logic: "◇", code: "{ }", ai: "AI", data: "▦", out: "➤" };
+const SUB = new Set(["lmChatGoogleGemini", "lmChatGroq", "outputParserStructured"]);
+const NS = "http://www.w3.org/2000/svg";
+const wfSvg = $("#wf-svg"), wfTip = $("#wf-tip");
+const NW = 80;
+let vb = { x: 0, y: 0, w: WF.w, h: WF.h }, catFocus = null;
+const wOut = WF.n.map(() => []), inn = WF.n.map(() => []);
+WF.e.forEach(([a, b, k], i) => { wOut[a].push(i); inn[b].push(i); });
+const center = i => { const n = WF.n[i]; return [n[3] + NW / 2, n[4] + NW / 2]; };
+function edgePath([a, b, k]) {
+  const A = WF.n[a], B = WF.n[b];
+  if (k) { const x1 = A[3] + NW / 2, y1 = A[4], x2 = B[3] + NW / 2, y2 = B[4] + NW; const c = Math.max(60, Math.abs(y1 - y2) / 2); return `M${x1} ${y1} C${x1} ${y1 - c} ${x2} ${y2 + c} ${x2} ${y2}`; }
+  const x1 = A[3] + NW, y1 = A[4] + NW / 2, x2 = B[3], y2 = B[4] + NW / 2; const c = Math.max(80, Math.abs(x2 - x1) / 2);
+  return `M${x1} ${y1} C${x1 + c} ${y1} ${x2 - c} ${y2} ${x2} ${y2}`;
+}
+function buildWf() {
+  let h = `<defs><filter id="wfglow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g id="wf-edges">`;
+  WF.e.forEach((e, i) => { h += `<path class="we${e[2] ? " ai" : ""}" id="we-${i}" d="${edgePath(e)}"/>`; });
+  h += `</g><g id="wf-nodes">`;
+  WF.n.forEach(([name, cat, type, x, y], i) => {
+    const col = CAT_COL[cat], short = name.length > 20 ? name.slice(0, 19) + "…" : name;
+    const shape = SUB.has(type) ? `<circle cx="40" cy="40" r="34"/>` : `<rect width="80" height="80" rx="14"/>`;
+    h += `<g class="wn" id="wn-${i}" data-i="${i}" data-cat="${cat}" transform="translate(${x} ${y})" style="--c:${col}">${shape}<text class="ic" x="40" y="49" text-anchor="middle">${CAT_ICON[cat]}</text><text class="lb" x="40" y="116" text-anchor="middle">${short.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</text></g>`;
+  });
+  h += `</g><g id="wf-pulses"></g>`;
+  wfSvg.innerHTML = h;
+  setVb(vb);
+}
+function setVb(v) { vb = v; wfSvg.setAttribute("viewBox", `${v.x} ${v.y} ${v.w} ${v.h}`); }
+const ease = k => k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+function animVb(to, dur = 1600) {
+  const from = { ...vb }, t0 = performance.now();
+  if (reduce) return setVb(to);
+  (function f(now) { const k = ease(Math.min(1, (now - t0) / dur)); setVb({ x: from.x + (to.x - from.x) * k, y: from.y + (to.y - from.y) * k, w: from.w + (to.w - from.w) * k, h: from.h + (to.h - from.h) * k }); if (k < 1) requestAnimationFrame(f); })(t0);
+}
+const ratio = () => { const r = wfSvg.getBoundingClientRect(); return r.height ? r.width / r.height : 1.6; };
+function fitAll() { const pad = 120, w = WF.w + pad * 2, h = WF.h + pad * 2, r = ratio(); return w / h > r ? { x: -pad, y: -pad - (w / r - h) / 2, w, h: w / r } : { x: -pad - (h * r - w) / 2, y: -pad, w: h * r, h }; }
+function focusTrig() { const i = WF.n.findIndex(n => n[2] === "scheduleTrigger"); const [cx, cy] = center(i); const w = 900, h = w / ratio(); return { x: cx - w * .25, y: cy - h / 2, w, h }; }
+let revealed = false;
+function reveal(on) { revealed = on; animVb(on ? fitAll() : focusTrig()); $("#wf-reveal").textContent = t(on ? "wfFocus" : "wfReveal"); sfx("open"); }
+$("#wf-reveal").addEventListener("click", () => reveal(!revealed));
+function zoomBy(f, px, py) { const cx = px ?? vb.x + vb.w / 2, cy = py ?? vb.y + vb.h / 2; setVb({ x: cx - (cx - vb.x) * f, y: cy - (cy - vb.y) * f, w: vb.w * f, h: vb.h * f }); }
+$("#wf-in").addEventListener("click", () => zoomBy(.7));
+$("#wf-out").addEventListener("click", () => zoomBy(1 / .7));
+(() => { // перетягування і масштаб
+  const st = $("#wf-stage"); let d = null;
+  const toSvg = (cx, cy) => { const r = wfSvg.getBoundingClientRect(); return [vb.x + (cx - r.left) / r.width * vb.w, vb.y + (cy - r.top) / r.height * vb.h]; };
+  st.addEventListener("pointerdown", e => { if (e.button) return; d = { x: e.clientX, y: e.clientY, v: { ...vb } }; st.setPointerCapture(e.pointerId); st.classList.add("drag"); });
+  st.addEventListener("pointermove", e => { if (!d) return; const r = wfSvg.getBoundingClientRect(); setVb({ ...d.v, x: d.v.x - (e.clientX - d.x) / r.width * d.v.w, y: d.v.y - (e.clientY - d.y) / r.height * d.v.h }); });
+  const up = () => { d = null; st.classList.remove("drag"); };
+  st.addEventListener("pointerup", up); st.addEventListener("pointercancel", up);
+  st.addEventListener("wheel", e => { if (!e.ctrlKey && !e.metaKey) return; e.preventDefault(); const [px, py] = toSvg(e.clientX, e.clientY); zoomBy(e.deltaY > 0 ? 1.12 : 1 / 1.12, px, py); }, { passive: false });
+})();
+function hl(i) {
+  wfSvg.classList.toggle("focus", i != null || !!catFocus);
+  $$("#wf-svg .hl").forEach(n => n.classList.remove("hl"));
+  if (i == null) { if (catFocus) $$(`#wf-svg .wn[data-cat="${catFocus}"]`).forEach(n => n.classList.add("hl")); return; }
+  $(`#wn-${i}`).classList.add("hl");
+  [...wOut[i], ...inn[i]].forEach(ei => { $(`#we-${ei}`).classList.add("hl"); const [a, b] = WF.e[ei]; $(`#wn-${a}`).classList.add("hl"); $(`#wn-${b}`).classList.add("hl"); });
+}
+wfSvg.addEventListener("pointerover", e => {
+  const g = e.target.closest(".wn"); if (!g) return;
+  const i = +g.dataset.i, n = WF.n[i]; hl(i);
+  wfTip.innerHTML = `<b>${n[0].replace(/</g, "&lt;")}</b><span>${t("cats")[n[1]]} · ${n[2]}</span>`; wfTip.hidden = false;
+});
+wfSvg.addEventListener("pointermove", e => { if (wfTip.hidden) return; const r = $("#wf-stage").getBoundingClientRect(); wfTip.style.left = Math.min(e.clientX - r.left + 14, r.width - 220) + "px"; wfTip.style.top = (e.clientY - r.top + 14) + "px"; });
+wfSvg.addEventListener("pointerout", e => { if (e.target.closest(".wn") && !e.relatedTarget?.closest?.(".wn")) { hl(null); wfTip.hidden = true; } });
+function renderLegend() {
+  const counts = {}; WF.n.forEach(n => counts[n[1]] = (counts[n[1]] || 0) + 1);
+  $("#wf-legend").innerHTML = Object.keys(CAT_COL).map(c => `<button type="button" class="lg" id="lg-${c}" data-c="${c}" aria-pressed="${catFocus === c}" style="--c:${CAT_COL[c]}"><i></i>${t("cats")[c]}<em>${counts[c] || 0}</em></button>`).join("");
+}
+$("#wf-legend").addEventListener("click", e => { const b = e.target.closest("[data-c]"); if (!b) return; catFocus = catFocus === b.dataset.c ? null : b.dataset.c; renderLegend(); hl(null); });
+function renderPipe() { if (!window.__wfReady) return; renderLegend(); $("#wf-reveal").textContent = t(revealed ? "wfFocus" : "wfReveal"); }
+buildWf();
+setVb(focusTrig());
+window.__wfReady = true; renderPipe();
+if ("IntersectionObserver" in window) {
+  const wo = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && !revealed) { setTimeout(() => reveal(true), 500); wo.disconnect(); } }), { threshold: .5 });
+  wo.observe($("#wf-stage"));
+}
+addEventListener("resize", () => setVb(revealed ? fitAll() : focusTrig()));
+
+/* запуск: хвиля по справжніх зв'язках від тригера розкладу */
+function pulse(ei, dur) {
+  return new Promise(res => {
+    const p = $(`#we-${ei}`), L = p.getTotalLength(), dot = document.createElementNS(NS, "circle");
+    dot.setAttribute("r", 9); dot.setAttribute("class", "pulse"); $("#wf-pulses").appendChild(dot); p.classList.add("lit");
+    const t0 = performance.now();
+    (function f(now) { const k = Math.min(1, (now - t0) / dur), pt = p.getPointAtLength(L * k); dot.setAttribute("cx", pt.x); dot.setAttribute("cy", pt.y); if (k < 1) requestAnimationFrame(f); else { dot.remove(); res(); } })(t0);
+  });
+}
+const wlog = s => { const el = $("#wf-log"); el.innerHTML = `<div>› ${s.replace(/</g, "&lt;")}</div>` + el.innerHTML; while (el.children.length > 4) el.lastChild.remove(); };
 let runningPipe = false;
 $("#run").addEventListener("click", async () => {
   if (runningPipe) return; runningPipe = true;
-  $("#run").textContent = t("running"); $("#post").innerHTML = "";
-  const nodes = $$(".node"); nodes.forEach(n => n.classList.remove("on", "done"));
-  for (const n of nodes) { n.classList.add("on"); await new Promise(r => setTimeout(r, reduce ? 0 : 520)); n.classList.remove("on"); n.classList.add("done"); }
-  $("#post").innerHTML = t("posted"); $("#run").textContent = t("run"); runningPipe = false;
+  $("#run").textContent = t("running"); $("#post").innerHTML = ""; $("#wf-log").innerHTML = "";
+  if (!revealed) reveal(true);
+  $$("#wf-svg .lit, #wf-svg .on").forEach(n => n.classList.remove("lit", "on"));
+  wfSvg.classList.add("running");
+  const start = WF.n.findIndex(n => n[2] === "scheduleTrigger");
+  const seen = new Set([start]); let wave = [start];
+  $(`#wn-${start}`).classList.add("on"); wlog(t("wfStart"));
+  while (wave.length) {
+    const next = [], jobs = [];
+    wave.forEach(i => {
+      inn[i].filter(ei => WF.e[ei][2]).forEach(ei => { const s = WF.e[ei][0]; $(`#wn-${s}`).classList.add("on"); $(`#we-${ei}`).classList.add("lit"); });
+      wOut[i].filter(ei => !WF.e[ei][2]).forEach(ei => { const b = WF.e[ei][1]; if (seen.has(b)) return; seen.add(b); next.push(b); jobs.push(pulse(ei, reduce ? 1 : 360)); });
+    });
+    await Promise.all(jobs);
+    next.forEach(b => $(`#wn-${b}`).classList.add("on"));
+    const named = next.map(b => WF.n[b][0]).filter(n => !/^RSS Read\d*$/.test(n) || n === "RSS Read");
+    if (named.length) wlog(named.slice(0, 3).join(" · ") + (named.length > 3 ? " …" : ""));
+    wave = next;
+  }
+  wlog(t("wfDone")); wfSvg.classList.remove("running");
+  $("#post").innerHTML = t("posted"); $("#run").textContent = t("run"); runningPipe = false; sfx("ok");
 });
 
 /* NDA cards: спроба «розшифрувати» → доступ заборонено */
